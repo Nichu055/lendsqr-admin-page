@@ -32,7 +32,6 @@ const Header: React.FC = () => {
           src={Logo}
           alt="lendsqr logo"
           className="header-logo-img"
-          style={{ height: 32, width: 'auto', display: 'block' }}
         />
       </div>
       <div className="header-search">
