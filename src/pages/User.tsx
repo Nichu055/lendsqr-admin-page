@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../styles/User.scss';
 import UserSummary from '../components/UserSummary';
+import ViewDetails from '../assets/UsersTable/ViewDetails.svg'
+import BlacklistUser from '../assets/UsersTable/BlacklistUser.svg'
+import ActivateUser from '../assets/UsersTable/ActivateUser.svg'
 
 const users = [
   {
@@ -91,6 +94,12 @@ const statusClass = (status: string) => {
 };
 
 const User: React.FC = () => {
+  const [activeDropdown, setActiveDropdown] = useState<number | null>(null);
+
+  const toggleDropdown = (index: number) => {
+    setActiveDropdown(activeDropdown === index ? null : index);
+  };
+
   return (
     <div className="user-page">
       <h2 className="user-title">Users</h2>
@@ -139,8 +148,35 @@ const User: React.FC = () => {
                     {u.status}
                   </span>
                 </td>
-                <td>
-                  {/* <MoreMenuIcon /> */}
+                <td className="user-actions">
+                  <button
+                    className="user-menu-button"
+                    onClick={() => toggleDropdown(idx)}
+                  >
+                    ⋮
+                  </button>
+                  {activeDropdown === idx && (
+                    <div className="user-dropdown">
+                      <div className="user-dropdown-item">
+                        <span className="dropdown-icon">
+                          <img src={ViewDetails} alt="View Details" />
+                        </span>
+                        View Details
+                      </div>
+                      <div className="user-dropdown-item">
+                        <span className="dropdown-icon">
+                          <img src={BlacklistUser} alt="Blacklist User" />
+                        </span>
+                        Blacklist User
+                      </div>
+                      <div className="user-dropdown-item">
+                        <span className="dropdown-icon">
+                          <img src={ActivateUser} alt="Activate User" />
+                        </span>
+                        Activate User
+                      </div>
+                    </div>
+                  )}
                 </td>
               </tr>
             ))}
@@ -148,7 +184,11 @@ const User: React.FC = () => {
         </table>
         <div className="user-table-footer">
           <div>
-            Showing <select className="user-table-select"><option>100</option></select> out of 100
+            Showing{' '}
+            <select className="user-table-select">
+              <option>100</option>
+            </select>{' '}
+            out of 100
           </div>
           <div className="user-table-pagination">
             {/* <ChevronLeftIcon /> */}
