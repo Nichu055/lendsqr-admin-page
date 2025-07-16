@@ -57,7 +57,7 @@ const Header: React.FC = () => {
             tabIndex={0}
             style={{ cursor: 'pointer' }}
           >
-            AdeDeji
+            Adedeji
           </span>
           <svg
             className="header-dropdown-arrow"
@@ -66,7 +66,13 @@ const Header: React.FC = () => {
             viewBox="0 0 12 8"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            style={{ marginLeft: 4 }}
+            style={{
+              marginLeft: 2,
+              cursor: 'pointer',
+              transform: dropdownOpen ? 'rotate(180deg)' : 'none',
+              transition: 'transform 0.2s'
+            }}
+            onClick={() => setDropdownOpen((open) => !open)}
           >
             <path d="M1 1L6 6L11 1" stroke="#213F7D" strokeWidth="2" strokeLinecap="round"/>
           </svg>
