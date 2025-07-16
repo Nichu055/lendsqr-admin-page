@@ -71,13 +71,12 @@
     background: $color-light-gray;
     color: $color-primary-blue;
   }
-
-  &.active {
-    background: $color-light-gray;
+&.active {
+    background: rgba($color-primary-teal, 0.06);
     color: $color-primary-blue;
     border-left: 3px solid $color-primary-teal;
     font-weight: 600;
-  }
+}
 }
 
 .sidebar-icon {
