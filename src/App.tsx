@@ -1,15 +1,27 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Login from './pages/Login';
+import DashboardOutlet from './components/DashboardLayout/DashboardOutlet';
+import User from './pages/User';
 
 const App: React.FC = () => {
+  const routes = createBrowserRouter([
+    { path: "/",
+      element: <Login />
+    },
+    {
+      path: "/dashboard",
+      element: <DashboardOutlet />,
+      children: [
+        {
+          path: "user",
+          element: <User />
+        },
+      ],
+    },
+  ]);
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/login" element={<Login />} />
-      </Routes>
-    </Router>
+    <RouterProvider router={routes}></RouterProvider>
   );
 };
 
