@@ -2,20 +2,51 @@ import React, { useState } from 'react';
 import '../styles/Login.scss'
 import Main_Logo from '../assets/LoginLogo/Ledsqr_Logo.svg'
 import PIC_LOGO from '../assets/LoginLogo/pablo_signin.svg'
+import Toast from '../components/Toast';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
+
+  // Email validation
+  const isValidEmail = (email: string) =>
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+  // Password validation (min 6 chars)
+  const isValidPassword = (password: string) =>
+    password.length >= 6;
 
   // logic for handling login
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Login attempt:', { email, password });
+    if (!email || !password) {
+      setToast({ message: 'Please enter both email and password.', type: 'error' });
+      return;
+    }
+    if (!isValidEmail(email)) {
+      setToast({ message: 'Please enter a valid email address.', type: 'error' });
+      return;
+    }
+    if (!isValidPassword(password)) {
+      setToast({ message: 'Password must be at least 6 characters.', type: 'error' });
+      return;
+    }
+    // send successful message
+    setToast({ message: 'Login successful!', type: 'success' });
+    
   };
 
   return (
     <div className="login-container">
+      {toast && (
+        <Toast
+          message={toast.message}
+          type={toast.type}
+          onClose={() => setToast(null)}
+        />
+      )}
       <div className="login-left">
         <div className="logo">
           <img src={Main_Logo} alt="Logo" className="logo-image" />
