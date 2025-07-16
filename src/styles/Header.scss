@@ -4,11 +4,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: $white;
+  background: $color-white;
   padding: 0 32px;
   height: 72px;
-  border-bottom: 1px solid $light-gray;
-  box-shadow: 0 2px 8px rgba($primary-blue, 0.04);
+  border-bottom: 1px solid $color-light-gray;
+  @include box-shadow-md;
 
   .header-left {
     display: flex;
@@ -17,7 +17,7 @@
     .header-logo {
       font-size: 24px;
       font-weight: 700;
-      color: $primary-blue;
+      color: $color-primary-blue;
       letter-spacing: 1px;
     }
 
@@ -39,22 +39,22 @@
     .header-search-input {
       width: 100%;
       padding: 8px 12px;
-      border: 1px solid $light-gray;
-      border-radius: 8px 0 0 8px;
+      border: 1px solid $color-light-gray;
+      border-radius: $radius-md 0 0 $radius-md;
       font-size: 16px;
       outline: none;
-      background: $white;
-      color: $primary-blue;
+      background: $color-white;
+      color: $color-primary-blue;
       &::placeholder {
-        color: rgba($primary-blue, 0.04);
+        color: rgba($color-primary-blue, 0.04);
         opacity: 1;
       }
     }
 
     .header-search-btn {
-      background: $primary-teal;
+      background: $color-primary-teal;
       border: none;
-      border-radius: 0 8px 8px 0;
+      border-radius: 0 $radius-md $radius-md 0;
       padding: 0 16px;
       height: 40px;
       display: flex;
@@ -73,7 +73,7 @@
     gap: 32px;
 
     .header-docs {
-      color: $primary-blue;
+      color: $color-primary-blue;
       font-size: 16px;
       font-weight: 500;
       cursor: pointer;
@@ -103,14 +103,14 @@
         width: 32px;
         height: 32px;
         border-radius: 50%;
-        border: 2px solid $primary-teal;
+        border: 2px solid $color-primary-teal;
         object-fit: cover;
       }
 
       .header-username {
         font-size: 16px;
         font-weight: 600;
-        color: $primary-blue;
+        color: $color-primary-blue;
       }
 
       .header-dropdown-arrow {
@@ -121,10 +121,10 @@
         position: absolute;
         top: 110%;
         right: 0;
-        background: $white;
-        border: 1px solid $light-gray;
-        border-radius: 8px;
-        box-shadow: 0 2px 8px rgba($primary-blue, 0.08);
+        background: $color-white;
+        border: 1px solid $color-light-gray;
+        border-radius: $radius-md;
+        @include box-shadow-md;
         min-width: 120px;
         z-index: 10;
         padding: 8px 0;
@@ -136,10 +136,10 @@
           text-align: left;
           padding: 10px 16px;
           font-size: 15px;
-          color: $primary-blue;
+          color: $color-primary-blue;
           cursor: pointer;
           &:hover {
-            background: $light-gray;
+            background: $color-light-gray;
           }
         }
       }

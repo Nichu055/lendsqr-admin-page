@@ -1,10 +1,40 @@
-// Colors
-$primary-blue: #213f7d;
-$primary-teal: #39cdcc;
-$text-gray: #545f7d;
-$light-gray: #f5f5f5;
-$white: #ffffff;
-$hover-teal: #2cb5b4;
+// Common colors
+$color-primary-blue: #213f7d;
+$color-primary-teal: #39cdcc;
+$color-text-gray: #545f7d;
+$color-light-gray: #f5f5f5;
+$color-white: #ffffff;
+$color-hover-teal: #2cb5b4;
+
+// Common border radius
+$radius-md: 8px;
+$radius-lg: 12px;
+
+// Common box-shadow
+@mixin box-shadow-md {
+  box-shadow: 0 2px 8px rgba($color-primary-blue, 0.04);
+}
+@mixin box-shadow-lg {
+  box-shadow: 0 2px 16px rgba($color-primary-blue, 0.08);
+}
+
+// Common button style
+%btn-primary {
+  background: $color-primary-teal;
+  color: $color-white;
+  border: none;
+  border-radius: $radius-md;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 1px 4px rgba($color-primary-blue, 0.08);
+  padding: 0.75em 2em;
+  letter-spacing: 1.5px;
+  transition: background 0.2s;
+  &:hover {
+    background: $color-hover-teal;
+  }
+}
 
 // Typography
 $font-family: 'Avenir Next', sans-serif;
@@ -18,32 +48,32 @@ $font-family: 'Avenir Next', sans-serif;
 
 body {
   font-family: $font-family;
-  background: $white;
-  color: $text-gray;
+  background: $color-white;
+  color: $color-text-gray;
 }
 
 // Common form styles
 .form-input {
   width: 100%;
   padding: 16px;
-  border: 2px solid $text-gray;
+  border: 2px solid $color-text-gray;
   border-radius: 8px;
   font-size: 14px;
-  color: $text-gray;
+  color: $color-text-gray;
   outline: none;
   
   &:focus {
-    border-color: $primary-teal;
+    border-color: $color-primary-teal;
   }
   
   &::placeholder {
-    color: $text-gray;
+    color: $color-text-gray;
   }
 }
 
 .btn-primary {
-  background: $primary-teal;
-  color: $white;
+  background: $color-primary-teal;
+  color: $color-white;
   border: none;
   padding: 16px;
   border-radius: 8px;
@@ -53,7 +83,7 @@ body {
   letter-spacing: 1.5px;
   
   &:hover {
-    background: $hover-teal;
+    background: $color-hover-teal;
   }
 }
 
@@ -66,7 +96,7 @@ body {
   max-width: 320px;
   padding: 16px 24px 16px 16px;
   border-radius: 8px;
-  color: $white;
+  color: $color-white;
   font-size: 15px;
   font-weight: 500;
   box-shadow: 0 4px 16px rgba(33, 63, 125, 0.15);
@@ -76,7 +106,7 @@ body {
   animation: toast-fade-in 0.3s;
 
   &.success {
-    background: $primary-teal;
+    background: $color-primary-teal;
   }
   &.error {
     background: #e74c3c;
@@ -85,7 +115,7 @@ body {
   .toast-close {
     background: none;
     border: none;
-    color: $white;
+    color: $color-white;
     font-size: 18px;
     margin-left: auto;
     cursor: pointer;

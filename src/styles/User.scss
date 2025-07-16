@@ -2,14 +2,14 @@
 
 .user-page {
   padding: 32px 24px;
-  background: $light-gray;
+  background: $color-light-gray;
   min-height: 100vh;
 }
 
 .user-title {
   font-size: 20px;
   font-weight: 700;
-  color: $primary-blue;
+  color: $color-primary-blue;
   margin-bottom: 24px;
 }
 
@@ -20,9 +20,9 @@
 }
 
 .user-summary-card {
-  background: $white;
+  background: $color-white;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba($primary-blue, 0.04);
+  box-shadow: 0 2px 8px rgba($color-primary-blue, 0.04);
   padding: 24px 32px;
   min-width: 200px;
   display: flex;
@@ -49,7 +49,7 @@
 
 .user-summary-label {
   font-size: 12px;
-  color: $text-gray;
+  color: $color-text-gray;
   font-weight: 600;
   letter-spacing: 1px;
 }
@@ -57,13 +57,13 @@
 .user-summary-value {
   font-size: 24px;
   font-weight: 700;
-  color: $primary-blue;
+  color: $color-primary-blue;
 }
 
 .user-table-container {
-  background: $white;
+  background: $color-white;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba($primary-blue, 0.04);
+  box-shadow: 0 2px 8px rgba($color-primary-blue, 0.04);
   padding: 24px;
 }
 
@@ -72,7 +72,7 @@
   border-collapse: separate;
   border-spacing: 0;
   font-size: 14px;
-  color: $text-gray;
+  color: $color-text-gray;
 
   th, td {
     padding: 12px 8px;
@@ -83,19 +83,19 @@
   th {
     font-size: 12px;
     font-weight: 700;
-    color: $text-gray;
+    color: $color-text-gray;
     letter-spacing: 0.5px;
-    background: $white;
-    border-bottom: 1px solid $light-gray;
+    background: $color-white;
+    border-bottom: 1px solid $color-light-gray;
     position: relative;
     white-space: nowrap;
   }
 
   tbody tr {
-    border-bottom: 1px solid $light-gray;
+    border-bottom: 1px solid $color-light-gray;
     transition: background 0.2s;
     &:hover {
-      background: $light-gray;
+      background: $color-light-gray;
     }
   }
 }
@@ -131,16 +131,16 @@
   align-items: center;
   margin-top: 16px;
   font-size: 13px;
-  color: $text-gray;
+  color: $color-text-gray;
 }
 
 .user-table-select {
-  border: 1px solid $light-gray;
+  border: 1px solid $color-light-gray;
   border-radius: 4px;
   padding: 2px 8px;
   margin: 0 4px;
-  background: $white;
-  color: $text-gray;
+  background: $color-white;
+  color: $color-text-gray;
 }
 
 .user-table-pagination {
@@ -152,18 +152,18 @@
 .user-table-page {
   border: none;
   background: transparent;
-  color: $text-gray;
+  color: $color-text-gray;
   font-size: 14px;
   padding: 4px 10px;
   border-radius: 4px;
   cursor: pointer;
   &.active {
-    background: $primary-blue;
-    color: $white;
+    background: $color-primary-blue;
+    color: $color-white;
   }
 }
 
 .user-table-ellipsis {
   padding: 0 6px;
-  color: $text-gray;
+  color: $color-text-gray;
 }
