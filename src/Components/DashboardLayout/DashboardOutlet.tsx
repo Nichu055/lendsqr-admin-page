@@ -2,6 +2,16 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import Header from './Header';
 import '../../styles/DashboardOutlet.scss';
+import SwitchOrganizationIcon from '../../assets/SidebarLogo/Switch_organization.svg';
+import DashboardIcon from '../../assets/SidebarLogo/Dashboard.svg';
+import UsersIcon from '../../assets/SidebarLogo/Users.svg';
+import GuarantorsIcon from '../../assets/SidebarLogo/Guarantors.svg';
+import LoansIcon from '../../assets/SidebarLogo/Loans.svg';
+import DecisionModelsIcon from '../../assets/SidebarLogo/Decision_Models.svg';
+import SavingsIcon from '../../assets/SidebarLogo/Savings.svg';
+import LoanRequestsIcon from '../../assets/SidebarLogo/Loan_Requests.svg';
+import WhitelistIcon from '../../assets/SidebarLogo/Whitelist.svg';
+import KarmaIcon from '../../assets/SidebarLogo/Karma.svg';
 
 const DashboardOutlet: React.FC = () => {
   const [orgDropdownOpen, setOrgDropdownOpen] = useState(false);
@@ -34,7 +44,9 @@ const DashboardOutlet: React.FC = () => {
               ref={orgDropdownRef}
               style={{ cursor: 'pointer', position: 'relative' }}
             >
-              <span className="sidebar-icon">{/* <SwitchOrgIcon /> */}</span>
+              <span className="sidebar-icon">
+                <img src={SwitchOrganizationIcon} alt="Switch Organization" />
+              </span>
               <span className="sidebar-text">Switch Organization</span>
               <button
                 className="sidebar-caret"
@@ -42,7 +54,7 @@ const DashboardOutlet: React.FC = () => {
                   display: 'inline-block',
                   background: 'none',
                   border: 'none',
-                  marginLeft: 'auto',
+                  marginLeft: '0',
                   cursor: 'pointer',
                   transition: 'transform 0.2s',
                   transform: orgDropdownOpen ? 'rotate(180deg)' : 'none'
@@ -54,73 +66,139 @@ const DashboardOutlet: React.FC = () => {
                 }}
                 tabIndex={0}
               >
-                {/* <CaretDownIcon /> */}
                 ▼
               </button>
             </li>
             {orgDropdownOpen && (
               <li className="sidebar-dashboard">
-                <span className="sidebar-icon">{/* <HomeIcon /> */}</span>
+                <span className="sidebar-icon">
+                  <img src={DashboardIcon} alt="Dashboard" />
+                </span>
                 <span className="sidebar-text">Dashboard</span>
               </li>
             )}
             <li className="sidebar-section">CUSTOMERS</li>
             <li className="sidebar-link active">
-              <span className="sidebar-icon">{/* <UsersIcon /> */}</span>
+              <span className="sidebar-icon">
+                <img src={UsersIcon} alt="Users" />
+              </span>
               <span className="sidebar-text">Users</span>
             </li>
             <li className="sidebar-link">
-              <span className="sidebar-icon">{/* <GuarantorsIcon /> */}</span>
+              <span className="sidebar-icon">
+                <img src={GuarantorsIcon} alt="Guarantors" />
+              </span>
               <span className="sidebar-text">Guarantors</span>
             </li>
             <li className="sidebar-link">
-              <span className="sidebar-icon">{/* <LoansIcon /> */}</span>
+              <span className="sidebar-icon">
+                <img src={LoansIcon} alt="Loans" />
+              </span>
               <span className="sidebar-text">Loans</span>
             </li>
             <li className="sidebar-link">
-              <span className="sidebar-icon">{/* <DecisionModelsIcon /> */}</span>
+              <span className="sidebar-icon">
+                <img src={DecisionModelsIcon} alt="Decision Models" />
+              </span>
               <span className="sidebar-text">Decision Models</span>
             </li>
             <li className="sidebar-link">
-              <span className="sidebar-icon">{/* <SavingsIcon /> */}</span>
+              <span className="sidebar-icon">
+                <img src={SavingsIcon} alt="Savings" />
+              </span>
               <span className="sidebar-text">Savings</span>
             </li>
             <li className="sidebar-link">
-              <span className="sidebar-icon">{/* <LoanRequestsIcon /> */}</span>
+              <span className="sidebar-icon">
+                <img src={LoanRequestsIcon} alt="Loan Requests" />
+              </span>
               <span className="sidebar-text">Loan Requests</span>
             </li>
             <li className="sidebar-link">
-              <span className="sidebar-icon">{/* <WhitelistIcon /> */}</span>
+              <span className="sidebar-icon">
+                <img src={WhitelistIcon} alt="Whitelist" />
+              </span>
               <span className="sidebar-text">Whitelist</span>
             </li>
             <li className="sidebar-link">
-              <span className="sidebar-icon">{/* <KarmaIcon /> */}</span>
+              <span className="sidebar-icon">
+                <img src={KarmaIcon} alt="Karma" />
+              </span>
               <span className="sidebar-text">Karma</span>
             </li>
             <li className="sidebar-section">BUSINESSES</li>
             <li className="sidebar-link">
-              <span className="sidebar-icon">{/* <OrganizationIcon /> */}</span>
+              <span className="sidebar-icon">
+                <img src={SwitchOrganizationIcon} alt="Organization" />
+              </span>
               <span className="sidebar-text">Organization</span>
             </li>
             <li className="sidebar-link">
-              <span className="sidebar-icon">{/* <LoanProductsIcon /> */}</span>
+              <span className="sidebar-icon">
+                <img src={LoansIcon} alt="Loan Products" />
+              </span>
               <span className="sidebar-text">Loan Products</span>
             </li>
             <li className="sidebar-link">
-              <span className="sidebar-icon">{/* <SavingsProductsIcon /> */}</span>
+              <span className="sidebar-icon">
+                <img src={SavingsIcon} alt="Savings Products" />
+              </span>
               <span className="sidebar-text">Savings Products</span>
             </li>
             <li className="sidebar-link">
-              <span className="sidebar-icon">{/* <FeesChargesIcon /> */}</span>
+              <span className="sidebar-icon">
+                <img src={KarmaIcon} alt="Fees and Charges" />
+              </span>
               <span className="sidebar-text">Fees and Charges</span>
             </li>
             <li className="sidebar-link">
-              <span className="sidebar-icon">{/* <TransactionsIcon /> */}</span>
+              <span className="sidebar-icon">
+                <img src={DecisionModelsIcon} alt="Transactions" />
+              </span>
               <span className="sidebar-text">Transactions</span>
             </li>
             <li className="sidebar-link">
-              <span className="sidebar-icon">{/* <ServicesIcon /> */}</span>
+              <span className="sidebar-icon">
+                <img src={WhitelistIcon} alt="Services" />
+              </span>
               <span className="sidebar-text">Services</span>
+            </li>
+            <li className="sidebar-link">
+              <span className="sidebar-icon">
+                <img src={UsersIcon} alt="Service Account" />
+              </span>
+              <span className="sidebar-text">Service Account</span>
+            </li>
+            <li className="sidebar-link">
+              <span className="sidebar-icon">
+                <img src={DashboardIcon} alt="Settlements" />
+              </span>
+              <span className="sidebar-text">Settlements</span>
+            </li>
+            <li className="sidebar-link">
+              <span className="sidebar-icon">
+                <img src={LoansIcon} alt="Reports" />
+              </span>
+              <span className="sidebar-text">Reports</span>
+            </li>
+            <li className="sidebar-section">SETTINGS</li>
+            <li className="sidebar-link">
+              <span className="sidebar-icon">
+                <img src={SwitchOrganizationIcon} alt="Preferences" />
+              </span>
+              <span className="sidebar-text">Preferences</span>
+            </li>
+            <li className="sidebar-link">
+              <span className="sidebar-icon">
+                <img src={KarmaIcon} alt="Fees and Pricing" />
+              </span>
+              <span className="sidebar-text">Fees and Pricing</span>
+            </li>
+            <li className="sidebar-link">
+              <span className="sidebar-icon">
+                <img src={DecisionModelsIcon} alt="Audit Logs" />
+              </span>
+              <span className="sidebar-text">Audit Logs</span>
             </li>
           </ul>
         </aside>
