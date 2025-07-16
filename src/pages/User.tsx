@@ -1,10 +1,19 @@
 import React, { useState } from 'react';
 import '../styles/User.scss';
 import UserSummary from '../components/UserSummary';
+import FilterDropdown from '../components/FilterDropdown';
 import ViewDetails from '../assets/UsersTable/ViewDetails.svg'
 import BlacklistUser from '../assets/UsersTable/BlacklistUser.svg'
 import ActivateUser from '../assets/UsersTable/ActivateUser.svg'
-import Filter from '../assets/UsersTable/filterbutton.svg'
+
+interface FilterValues {
+  organization: string;
+  username: string;
+  email: string;
+  date: string;
+  phoneNumber: string;
+  status: string;
+}
 
 const users = [
   {
@@ -96,9 +105,44 @@ const statusClass = (status: string) => {
 
 const User: React.FC = () => {
   const [activeDropdown, setActiveDropdown] = useState<number | null>(null);
+  const [filteredUsers, setFilteredUsers] = useState(users);
 
   const toggleDropdown = (index: number) => {
     setActiveDropdown(activeDropdown === index ? null : index);
+  };
+
+  const handleFilter = (filters: FilterValues) => {
+    let filtered = users;
+    
+    if (filters.organization) {
+      filtered = filtered.filter(user => 
+        user.organization.toLowerCase().includes(filters.organization.toLowerCase())
+      );
+    }
+    
+    if (filters.username) {
+      filtered = filtered.filter(user => 
+        user.username.toLowerCase().includes(filters.username.toLowerCase())
+      );
+    }
+    
+    if (filters.email) {
+      filtered = filtered.filter(user => 
+        user.email.toLowerCase().includes(filters.email.toLowerCase())
+      );
+    }
+    
+    if (filters.status) {
+      filtered = filtered.filter(user => user.status === filters.status);
+    }
+    
+    if (filters.phoneNumber) {
+      filtered = filtered.filter(user => 
+        user.phone.includes(filters.phoneNumber)
+      );
+    }
+    
+    setFilteredUsers(filtered);
   };
 
   return (
@@ -111,33 +155,33 @@ const User: React.FC = () => {
             <tr>
               <th>
                 ORGANIZATION
-                <img src={Filter} alt="Filter" className="filter-icon" />
+                <FilterDropdown onFilter={handleFilter} />
               </th>
               <th>
                 USERNAME
-                <img src={Filter} alt="Filter" className="filter-icon" />
+                <FilterDropdown onFilter={handleFilter} />
               </th>
               <th>
                 EMAIL
-                <img src={Filter} alt="Filter" className="filter-icon" />
+                <FilterDropdown onFilter={handleFilter} />
               </th>
               <th>
                 PHONE NUMBER
-                <img src={Filter} alt="Filter" className="filter-icon" />
+                <FilterDropdown onFilter={handleFilter} />
               </th>
               <th>
                 DATE JOINED
-                <img src={Filter} alt="Filter" className="filter-icon" />
+                <FilterDropdown onFilter={handleFilter} />
               </th>
               <th>
                 STATUS
-                <img src={Filter} alt="Filter" className="filter-icon" />
+                <FilterDropdown onFilter={handleFilter} />
               </th>
               <th></th>
             </tr>
           </thead>
           <tbody>
-            {users.map((u, idx) => (
+            {filteredUsers.map((u, idx) => (
               <tr key={idx}>
                 <td>{u.organization}</td>
                 <td>{u.username}</td>
