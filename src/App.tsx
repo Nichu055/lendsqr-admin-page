@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Login from './pages/Login';
 import DashboardOutlet from './components/DashboardLayout/DashboardOutlet';
 import User from './pages/User';
+import NotFound from './pages/NotFound';
 
 const App: React.FC = () => {
   const routes = createBrowserRouter([
@@ -17,8 +18,16 @@ const App: React.FC = () => {
           path: "users",
           element: <User />
         },
+        {
+          path: "*",
+          element: <NotFound />
+        }
       ],
     },
+    {
+      path: "*",
+      element: <NotFound />
+    }
   ]);
   return (
     <RouterProvider router={routes}></RouterProvider>
