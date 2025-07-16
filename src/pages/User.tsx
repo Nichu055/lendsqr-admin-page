@@ -4,6 +4,7 @@ import UserSummary from '../components/UserSummary';
 import ViewDetails from '../assets/UsersTable/ViewDetails.svg'
 import BlacklistUser from '../assets/UsersTable/BlacklistUser.svg'
 import ActivateUser from '../assets/UsersTable/ActivateUser.svg'
+import Filter from '../assets/UsersTable/filterbutton.svg'
 
 const users = [
   {
@@ -110,27 +111,27 @@ const User: React.FC = () => {
             <tr>
               <th>
                 ORGANIZATION
-                {/* <FilterIcon /> */}
+                <img src={Filter} alt="Filter" className="filter-icon" />
               </th>
               <th>
                 USERNAME
-                {/* <FilterIcon /> */}
+                <img src={Filter} alt="Filter" className="filter-icon" />
               </th>
               <th>
                 EMAIL
-                {/* <FilterIcon /> */}
+                <img src={Filter} alt="Filter" className="filter-icon" />
               </th>
               <th>
                 PHONE NUMBER
-                {/* <FilterIcon /> */}
+                <img src={Filter} alt="Filter" className="filter-icon" />
               </th>
               <th>
                 DATE JOINED
-                {/* <FilterIcon /> */}
+                <img src={Filter} alt="Filter" className="filter-icon" />
               </th>
               <th>
                 STATUS
-                {/* <FilterIcon /> */}
+                <img src={Filter} alt="Filter" className="filter-icon" />
               </th>
               <th></th>
             </tr>
