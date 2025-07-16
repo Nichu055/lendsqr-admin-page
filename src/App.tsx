@@ -14,7 +14,7 @@ const App: React.FC = () => {
       element: <DashboardOutlet />,
       children: [
         {
-          path: "user",
+          path: "users",
           element: <User />
         },
       ],
