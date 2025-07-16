@@ -43,13 +43,17 @@
     position: relative;
     white-space: nowrap;
   }
+}
 
-  tbody tr {
-    border-bottom: 1px solid $color-light-gray;
-    transition: background 0.2s;
-    &:hover {
-      background: $color-light-gray;
-    }
+.filter-icon {
+  width: 12px;
+  height: 12px;
+  margin-left: 8px;
+  cursor: pointer;
+  opacity: 0.6;
+  
+  &:hover {
+    opacity: 1;
   }
 }
 
@@ -176,4 +180,10 @@
 
 .dropdown-icon {
   font-size: 16px;
+  
+  img {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+  }
 }
