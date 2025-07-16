@@ -11,11 +11,58 @@
   box-shadow: 0 2px 8px rgba($primary-blue, 0.04);
 
   .header-left {
+    display: flex;
+    align-items: center;
+
     .header-logo {
       font-size: 24px;
       font-weight: 700;
       color: $primary-blue;
       letter-spacing: 1px;
+    }
+
+    .header-logo-img {
+      height: 32px;
+      width: auto;
+      display: block;
+    }
+  }
+
+  .header-search {
+    display: flex;
+    align-items: center;
+    margin: 0 32px 0 32px;
+    flex: 1;
+    max-width: 400px;
+
+    .header-search-input {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid $light-gray;
+      border-radius: 8px 0 0 8px;
+      font-size: 16px;
+      outline: none;
+      background: $white;
+      color: $primary-blue;
+      &::placeholder {
+        color: rgba($primary-blue, 0.04);
+        opacity: 1;
+      }
+    }
+
+    .header-search-btn {
+      background: $primary-teal;
+      border: none;
+      border-radius: 0 8px 8px 0;
+      padding: 0 16px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      svg {
+        display: block;
+      }
     }
   }
 
@@ -49,6 +96,7 @@
       display: flex;
       align-items: center;
       gap: 8px;
+      position: relative;
 
       .header-avatar {
         width: 32px;
@@ -62,6 +110,37 @@
         font-size: 16px;
         font-weight: 600;
         color: $primary-blue;
+      }
+
+      .header-dropdown-arrow {
+        transition: transform 0.2s;
+      }
+
+      .header-dropdown {
+        position: absolute;
+        top: 110%;
+        right: 0;
+        background: $white;
+        border: 1px solid $light-gray;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba($primary-blue, 0.08);
+        min-width: 120px;
+        z-index: 10;
+        padding: 8px 0;
+
+        .header-dropdown-item {
+          width: 100%;
+          background: none;
+          border: none;
+          text-align: left;
+          padding: 10px 16px;
+          font-size: 15px;
+          color: $primary-blue;
+          cursor: pointer;
+          &:hover {
+            background: $light-gray;
+          }
+        }
       }
     }
   }
