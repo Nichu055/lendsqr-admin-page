@@ -1,29 +1,6 @@
 import React from 'react';
 import '../styles/User.scss';
-// import UserSummary from '../components/UserSummary';
-// 
-const userSummary = [
-  {
-    label: 'USERS',
-    value: '2,453',
-    // icon: <UsersIcon />
-  },
-  {
-    label: 'ACTIVE USERS',
-    value: '2,453',
-    // icon: <ActiveUsersIcon />
-  },
-  {
-    label: 'USERS WITH LOANS',
-    value: '12,453',
-    // icon: <UsersWithLoansIcon />
-  },
-  {
-    label: 'USERS WITH SAVINGS',
-    value: '102,453',
-    // icon: <UsersWithSavingsIcon />
-  },
-];
+import UserSummary from '../components/UserSummary';
 
 const users = [
   {
@@ -117,17 +94,7 @@ const User: React.FC = () => {
   return (
     <div className="user-page">
       <h2 className="user-title">Users</h2>
-      <div className="user-summary-row">
-        {userSummary.map((item, idx) => (
-          <div className="user-summary-card" key={item.label}>
-            <div className={`user-summary-icon user-summary-icon-${idx}`}>
-              {/* Place for icon: {item.icon} */}
-            </div>
-            <div className="user-summary-label">{item.label}</div>
-            <div className="user-summary-value">{item.value}</div>
-          </div>
-        ))}
-      </div>
+      <UserSummary />
       <div className="user-table-container">
         <table className="user-table">
           <thead>

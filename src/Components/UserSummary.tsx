@@ -1,21 +1,39 @@
 import React from 'react';
+import '../styles/UserSummary.scss';
+import UsersIcon from '../assets/UserSummary/Users.svg';
+import ActiveUserIcon from '../assets/UserSummary/ActiveUsers.svg';
+import UsersLoans from '../assets/UserSummary/UsersLoans.svg';
+import UsersSavingIcons from '../assets/UserSummary/UserSavings.svg';
 
-interface UserSummaryItem {
-  label: string;
-  value: string;
-  // icon?: React.ReactNode;
-}
+const userSummaryData = [
+  {
+    label: 'USERS',
+    value: '2,453',
+    icon: UsersIcon,
+  },
+  {
+    label: 'ACTIVE USERS',
+    value: '2,453',
+    icon: ActiveUserIcon,
+  },
+  {
+    label: 'USERS WITH LOANS',
+    value: '12,453',
+    icon: UsersLoans,
+  },
+  {
+    label: 'USERS WITH SAVINGS',
+    value: '102,453',
+    icon: UsersSavingIcons,
+  },
+];
 
-interface UserSummaryProps {
-  items: UserSummaryItem[];
-}
-
-const UserSummary: React.FC<UserSummaryProps> = ({ items }) => (
+const UserSummary: React.FC = () => (
   <div className="user-summary-row">
-    {items.map((item, idx) => (
+    {userSummaryData.map((item, idx) => (
       <div className="user-summary-card" key={item.label}>
         <div className={`user-summary-icon user-summary-icon-${idx}`}>
-          {/* Place for icon: {item.icon} */}
+          <img src={item.icon} alt={item.label} />
         </div>
         <div className="user-summary-label">{item.label}</div>
         <div className="user-summary-value">{item.value}</div>

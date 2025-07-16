@@ -13,53 +13,6 @@
   margin-bottom: 24px;
 }
 
-.user-summary-row {
-  display: flex;
-  gap: 24px;
-  margin-bottom: 32px;
-}
-
-.user-summary-card {
-  background: $color-white;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba($color-primary-blue, 0.04);
-  padding: 24px 32px;
-  min-width: 200px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 8px;
-}
-
-.user-summary-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  margin-bottom: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 22px;
-  // Example background colors for each card
-  &-0 { background: #e5f0fd; color: #5718ff; }
-  &-1 { background: #fdf6e5; color: #ff3366; }
-  &-2 { background: #fce8e4; color: #ff5630; }
-  &-3 { background: #e5f7f6; color: #39cdcc; }
-}
-
-.user-summary-label {
-  font-size: 12px;
-  color: $color-text-gray;
-  font-weight: 600;
-  letter-spacing: 1px;
-}
-
-.user-summary-value {
-  font-size: 24px;
-  font-weight: 700;
-  color: $color-primary-blue;
-}
-
 .user-table-container {
   background: $color-white;
   border-radius: 8px;
@@ -123,6 +76,49 @@
     background: #f5f5f7;
     color: #545f7d;
   }
+}
+
+.user-table-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+  font-size: 13px;
+  color: $color-text-gray;
+}
+
+.user-table-select {
+  border: 1px solid $color-light-gray;
+  border-radius: 4px;
+  padding: 2px 8px;
+  margin: 0 4px;
+  background: $color-white;
+  color: $color-text-gray;
+}
+
+.user-table-pagination {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.user-table-page {
+  border: none;
+  background: transparent;
+  color: $color-text-gray;
+  font-size: 14px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  &.active {
+    background: $color-primary-blue;
+    color: $color-white;
+  }
+}
+
+.user-table-ellipsis {
+  padding: 0 6px;
+  color: $color-text-gray;
 }
 
 .user-table-footer {
