@@ -1,0 +1,169 @@
+@import './main.scss';
+
+.user-page {
+  padding: 32px 24px;
+  background: $light-gray;
+  min-height: 100vh;
+}
+
+.user-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: $primary-blue;
+  margin-bottom: 24px;
+}
+
+.user-summary-row {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.user-summary-card {
+  background: $white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba($primary-blue, 0.04);
+  padding: 24px 32px;
+  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.user-summary-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  // Example background colors for each card
+  &-0 { background: #e5f0fd; color: #5718ff; }
+  &-1 { background: #fdf6e5; color: #ff3366; }
+  &-2 { background: #fce8e4; color: #ff5630; }
+  &-3 { background: #e5f7f6; color: #39cdcc; }
+}
+
+.user-summary-label {
+  font-size: 12px;
+  color: $text-gray;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.user-summary-value {
+  font-size: 24px;
+  font-weight: 700;
+  color: $primary-blue;
+}
+
+.user-table-container {
+  background: $white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba($primary-blue, 0.04);
+  padding: 24px;
+}
+
+.user-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 14px;
+  color: $text-gray;
+
+  th, td {
+    padding: 12px 8px;
+    text-align: left;
+    background: transparent;
+  }
+
+  th {
+    font-size: 12px;
+    font-weight: 700;
+    color: $text-gray;
+    letter-spacing: 0.5px;
+    background: $white;
+    border-bottom: 1px solid $light-gray;
+    position: relative;
+    white-space: nowrap;
+  }
+
+  tbody tr {
+    border-bottom: 1px solid $light-gray;
+    transition: background 0.2s;
+    &:hover {
+      background: $light-gray;
+    }
+  }
+}
+
+.user-status {
+  display: inline-block;
+  padding: 4px 16px;
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+  &.status-active {
+    background: #f3fcf6;
+    color: #39cd62;
+  }
+  &.status-pending {
+    background: #fdf6e5;
+    color: #e9b200;
+  }
+  &.status-blacklisted {
+    background: #fde5e5;
+    color: #e4033b;
+  }
+  &.status-inactive {
+    background: #f5f5f7;
+    color: #545f7d;
+  }
+}
+
+.user-table-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+  font-size: 13px;
+  color: $text-gray;
+}
+
+.user-table-select {
+  border: 1px solid $light-gray;
+  border-radius: 4px;
+  padding: 2px 8px;
+  margin: 0 4px;
+  background: $white;
+  color: $text-gray;
+}
+
+.user-table-pagination {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.user-table-page {
+  border: none;
+  background: transparent;
+  color: $text-gray;
+  font-size: 14px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  &.active {
+    background: $primary-blue;
+    color: $white;
+  }
+}
+
+.user-table-ellipsis {
+  padding: 0 6px;
+  color: $text-gray;
+}
