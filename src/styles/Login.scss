@@ -40,7 +40,8 @@
   align-items: center;
   justify-content: center;
   padding: 40px;
-  background: $light-gray;
+  background: $white;
+  box-shadow: 0 0 30px rgba(84, 95, 125, 0.08);
 }
 
 .login-form-container {
