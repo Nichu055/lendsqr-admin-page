@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { fetchUsers, blacklistUser, activateUser } from '../services/userApi';
 import type { User as UserType } from '../services/userApi';
+import { useToast } from '../components/ToastContext';
 import '../styles/User.scss';
 import UserSummary from '../components/UserSummary';
 import FilterDropdown from '../components/FilterDropdown';
@@ -25,6 +26,7 @@ const User: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [activeDropdown, setActiveDropdown] = useState<number | null>(null);
   const [updating, setUpdating] = useState<string | null>(null);
+  const { showToast } = useToast();
 
   useEffect(() => {
     const loadUsers = async () => {
@@ -93,10 +95,10 @@ const User: React.FC = () => {
       setFilteredUsers(updatedUsers);
       setActiveDropdown(null);
       
-      alert('User has been blacklisted successfully');
+      showToast('User has been blacklisted successfully', 'success');
     } catch (error) {
       console.error('Error blacklisting user:', error);
-      alert('Failed to blacklist user. Please try again.');
+      showToast('Failed to blacklist user. Please try again.', 'error');
     } finally {
       setUpdating(null);
     }
@@ -115,10 +117,10 @@ const User: React.FC = () => {
       setFilteredUsers(updatedUsers);
       setActiveDropdown(null);
       
-      alert('User has been activated successfully');
+      showToast('User has been activated successfully', 'success');
     } catch (error) {
       console.error('Error activating user:', error);
-      alert('Failed to activate user. Please try again.');
+      showToast('Failed to activate user. Please try again.', 'error');
     } finally {
       setUpdating(null);
     }
