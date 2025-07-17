@@ -1,4 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { fetchUsers } from '../services/userApi';
+import type { User as UserType } from '../services/userApi';
 import '../styles/User.scss';
 import UserSummary from '../components/UserSummary';
 import FilterDropdown from '../components/FilterDropdown';
@@ -15,97 +18,24 @@ interface FilterValues {
   status: string;
 }
 
-const users = [
-  {
-    organization: 'Lendsqr',
-    username: 'Adedeji',
-    email: 'adedeji@lendsqr.com',
-    phone: '08078903721',
-    dateJoined: 'May 15, 2020 10:00 AM',
-    status: 'Inactive',
-  },
-  {
-    organization: 'Irorun',
-    username: 'Debby Ogana',
-    email: 'debby2@irorun.com',
-    phone: '08167080928',
-    dateJoined: 'Apr 30, 2020 10:00 AM',
-    status: 'Pending',
-  },
-  {
-    organization: 'Lendsqr',
-    username: 'Grace Effiom',
-    email: 'grace@lendsqr.com',
-    phone: '07060780922',
-    dateJoined: 'Apr 30, 2020 10:00 AM',
-    status: 'Blacklisted',
-  },
-  {
-    organization: 'Lendsqr',
-    username: 'Tosin Dokunmu',
-    email: 'tosin@lendsqr.com',
-    phone: '07003309226',
-    dateJoined: 'Apr 10, 2020 10:00 AM',
-    status: 'Pending',
-  },
-  {
-    organization: 'Lendsqr',
-    username: 'Grace Effiom',
-    email: 'grace@lendsqr.com',
-    phone: '07060780922',
-    dateJoined: 'Apr 30, 2020 10:00 AM',
-    status: 'Active',
-  },
-  {
-    organization: 'Lendsqr',
-    username: 'Tosin Dokunmu',
-    email: 'tosin@lendsqr.com',
-    phone: '08067080900',
-    dateJoined: 'Apr 10, 2020 10:00 AM',
-    status: 'Active',
-  },
-  {
-    organization: 'Lendsqr',
-    username: 'Grace Effiom',
-    email: 'grace@lendsqr.com',
-    phone: '07060780922',
-    dateJoined: 'Apr 30, 2020 10:00 AM',
-    status: 'Blacklisted',
-  },
-  {
-    organization: 'Lendsqr',
-    username: 'Tosin Dokunmu',
-    email: 'tosin@lendsqr.com',
-    phone: '08067080900',
-    dateJoined: 'Apr 10, 2020 10:00 AM',
-    status: 'Inactive',
-  },
-  {
-    organization: 'Lendsqr',
-    username: 'Grace Effiom',
-    email: 'grace@lendsqr.com',
-    phone: '07060780922',
-    dateJoined: 'Apr 30, 2020 10:00 AM',
-    status: 'Inactive',
-  },
-];
-
-const statusClass = (status: string) => {
-  switch (status) {
-    case 'Active':
-      return 'status-active';
-    case 'Pending':
-      return 'status-pending';
-    case 'Blacklisted':
-      return 'status-blacklisted';
-    default:
-      return 'status-inactive';
-  }
-};
-
 const User: React.FC = () => {
+  const navigate = useNavigate();
+  const [users, setUsers] = useState<UserType[]>([]);
+  const [filteredUsers, setFilteredUsers] = useState<UserType[]>([]);
+  const [loading, setLoading] = useState(true);
   const [activeDropdown, setActiveDropdown] = useState<number | null>(null);
-  const [filteredUsers, setFilteredUsers] = useState(users);
+
+  useEffect(() => {
+    const loadUsers = async () => {
+      setLoading(true);
+      const userData = await fetchUsers(100);
+      setUsers(userData);
+      setFilteredUsers(userData);
+      setLoading(false);
+    };
+
+    loadUsers();
+  }, []);
 
   const toggleDropdown = (index: number) => {
     setActiveDropdown(activeDropdown === index ? null : index);
@@ -145,6 +75,31 @@ const User: React.FC = () => {
     setFilteredUsers(filtered);
   };
 
+  const handleViewUserDetails = (userId: string) => {
+    navigate(`/dashboard/users/userdetails?id=${userId}`);
+  };
+
+  const statusClass = (status: string) => {
+    switch (status) {
+      case 'Active':
+        return 'status-active';
+      case 'Pending':
+        return 'status-pending';
+      case 'Blacklisted':
+        return 'status-blacklisted';
+      default:
+        return 'status-inactive';
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="user-page">
+        <div className="loading-spinner">Loading users...</div>
+      </div>
+    );
+  }
+
   return (
     <div className="user-page">
       <h2 className="user-title">Users</h2>
@@ -181,16 +136,30 @@ const User: React.FC = () => {
             </tr>
           </thead>
           <tbody>
-            {filteredUsers.map((u, idx) => (
-              <tr key={idx}>
-                <td>{u.organization}</td>
-                <td>{u.username}</td>
-                <td>{u.email}</td>
-                <td>{u.phone}</td>
-                <td>{u.dateJoined}</td>
+            {filteredUsers.map((user, idx) => (
+              <tr key={user.id}>
+                <td>{user.organization}</td>
                 <td>
-                  <span className={`user-status ${statusClass(u.status)}`}>
-                    {u.status}
+                  <span 
+                    className="clickable-text"
+                    onClick={() => handleViewUserDetails(user.id)}
+                  >
+                    {user.username}
+                  </span>
+                </td>
+                <td>
+                  <span 
+                    className="clickable-text"
+                    onClick={() => handleViewUserDetails(user.id)}
+                  >
+                    {user.email}
+                  </span>
+                </td>
+                <td>{user.phone}</td>
+                <td>{user.dateJoined}</td>
+                <td>
+                  <span className={`user-status ${statusClass(user.status)}`}>
+                    {user.status}
                   </span>
                 </td>
                 <td className="user-actions">
@@ -202,7 +171,10 @@ const User: React.FC = () => {
                   </button>
                   {activeDropdown === idx && (
                     <div className="user-dropdown">
-                      <div className="user-dropdown-item">
+                      <div 
+                        className="user-dropdown-item"
+                        onClick={() => handleViewUserDetails(user.id)}
+                      >
                         <span className="dropdown-icon">
                           <img src={ViewDetails} alt="View Details" />
                         </span>

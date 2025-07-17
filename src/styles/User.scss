@@ -249,3 +249,15 @@
     object-fit: contain;
   }
 }
+
+.clickable-text {
+  color: $color-primary-blue;
+  cursor: pointer;
+  text-decoration: none;
+  transition: color 0.2s;
+  
+  &:hover {
+    color: $color-primary-teal;
+    text-decoration: underline;
+  }
+}
