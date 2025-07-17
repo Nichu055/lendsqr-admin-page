@@ -44,8 +44,10 @@ const FilterDropdown: React.FC<FilterDropdownProps> = ({ onFilter }) => {
     if (isOpen) {
       document.addEventListener('mousedown', handleClickOutside);
       document.addEventListener('keydown', handleEscapeKey);
-      // Prevent body scroll on mobile when modal is open
-      document.body.style.overflow = 'hidden';
+      
+      if (window.innerWidth <= 768) {
+        document.body.style.overflow = 'hidden';
+      }
     } else {
       document.body.style.overflow = 'unset';
     }
