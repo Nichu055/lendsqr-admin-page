@@ -4,6 +4,7 @@ import Login from './pages/Login';
 import DashboardOutlet from './components/DashboardLayout/DashboardOutlet';
 import User from './pages/User';
 import NotFound from './pages/NotFound';
+import UserDetails from './pages/UserDetails';
 
 const App: React.FC = () => {
   const routes = createBrowserRouter([
@@ -19,8 +20,8 @@ const App: React.FC = () => {
           element: <User />
         },
         {
-          path: "*",
-          element: <NotFound />
+          path: "users/userdetails",
+          element: <UserDetails />
         }
       ],
     },
