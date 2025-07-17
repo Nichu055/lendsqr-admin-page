@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import type { User } from '../services/userApi';
-import { fetchUserById } from '../services/userApi';
+import { fetchUserById, blacklistUser, activateUser } from '../services/userApi';
 import '../styles/UserDetails.scss';
 import BackArrowIcon from '../assets/UsersTable/BackArrow.svg';
 
@@ -11,6 +11,7 @@ const UserDetails: React.FC = () => {
   const [activeTab, setActiveTab] = useState('General Details');
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const [updating, setUpdating] = useState(false);
 
   const userId = searchParams.get('id');
 
@@ -38,6 +39,42 @@ const UserDetails: React.FC = () => {
 
   const handleBackToUsers = () => {
     navigate('/dashboard/users');
+  };
+
+  const handleBlacklistUser = async () => {
+    if (!user || updating) return;
+    
+    try {
+      setUpdating(true);
+      const updatedUser = await blacklistUser(user.id);
+      setUser(updatedUser);
+      
+      // Show success message (you can replace with a toast notification)
+      alert('User has been blacklisted successfully');
+    } catch (error) {
+      console.error('Error blacklisting user:', error);
+      alert('Failed to blacklist user. Please try again.');
+    } finally {
+      setUpdating(false);
+    }
+  };
+
+  const handleActivateUser = async () => {
+    if (!user || updating) return;
+    
+    try {
+      setUpdating(true);
+      const updatedUser = await activateUser(user.id);
+      setUser(updatedUser);
+      
+      // Show success message (you can replace with a toast notification)
+      alert('User has been activated successfully');
+    } catch (error) {
+      console.error('Error activating user:', error);
+      alert('Failed to activate user. Please try again.');
+    } finally {
+      setUpdating(false);
+    }
   };
 
   if (loading) {
@@ -69,8 +106,20 @@ const UserDetails: React.FC = () => {
         <div className="header-top">
           <h1 className="page-title">User Details</h1>
           <div className="action-buttons">
-            <button className="btn-blacklist">BLACKLIST USER</button>
-            <button className="btn-activate">ACTIVATE USER</button>
+            <button 
+              className="btn-blacklist"
+              onClick={handleBlacklistUser}
+              disabled={updating || user?.status === 'Blacklisted'}
+            >
+              {updating ? 'UPDATING...' : 'BLACKLIST USER'}
+            </button>
+            <button 
+              className="btn-activate"
+              onClick={handleActivateUser}
+              disabled={updating || user?.status === 'Active'}
+            >
+              {updating ? 'UPDATING...' : 'ACTIVATE USER'}
+            </button>
           </div>
         </div>
       </div>

@@ -71,9 +71,15 @@
         cursor: pointer;
         text-transform: uppercase;
         letter-spacing: 1px;
+        transition: all 0.2s;
         
         @media (max-width: 768px) {
           width: 100%;
+        }
+        
+        &:disabled {
+          opacity: 0.6;
+          cursor: not-allowed;
         }
       }
       
@@ -82,7 +88,7 @@
         border-color: #e4033b;
         color: #e4033b;
         
-        &:hover {
+        &:hover:not(:disabled) {
           background: #e4033b;
           color: white;
         }
@@ -93,7 +99,7 @@
         border-color: $color-primary-teal;
         color: $color-primary-teal;
         
-        &:hover {
+        &:hover:not(:disabled) {
           background: $color-primary-teal;
           color: white;
         }
