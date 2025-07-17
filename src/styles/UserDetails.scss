@@ -238,6 +238,13 @@
   gap: 25px;
 }
 
+.socials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 55px !important;
+  max-width: 700px !important;
+}
+
 .detail-item {
   display: flex;
   flex-direction: column;
@@ -273,3 +280,4 @@
     margin-bottom: 0;
   }
 }
+

@@ -160,7 +160,7 @@ const UserDetails: React.FC = () => {
             {/* Socials */}
             <section className="details-section">
               <h3 className="section-title">Socials</h3>
-              <div className="details-grid">
+              <div className="details-grid socials-grid">
                 <div className="detail-item">
                   <label>TWITTER</label>
                   <span>@grace_effiom</span>
