@@ -51,10 +51,10 @@ const UserDetails: React.FC = () => {
       const updatedUser = await blacklistUser(user.id);
       setUser(updatedUser);
       
-      showToast('User has been blacklisted successfully', 'success');
+      showToast(`${user.firstName} ${user.lastName} has been blacklisted successfully`, 'success');
     } catch (error) {
       console.error('Error blacklisting user:', error);
-      showToast('Failed to blacklist user. Please try again.', 'error');
+      showToast(`Failed to blacklist ${user.firstName} ${user.lastName}. Please try again.`, 'error');
     } finally {
       setUpdating(false);
     }
@@ -68,10 +68,10 @@ const UserDetails: React.FC = () => {
       const updatedUser = await activateUser(user.id);
       setUser(updatedUser);
       
-      showToast('User has been activated successfully', 'success');
+      showToast(`${user.firstName} ${user.lastName} has been activated successfully`, 'success');
     } catch (error) {
       console.error('Error activating user:', error);
-      showToast('Failed to activate user. Please try again.', 'error');
+      showToast(`Failed to activate ${user.firstName} ${user.lastName}. Please try again.`, 'error');
     } finally {
       setUpdating(false);
     }

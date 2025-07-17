@@ -87,6 +87,10 @@ const User: React.FC = () => {
       setUpdating(userId);
       await blacklistUser(userId);
       
+      // Get the user name for toast message
+      const user = users.find(u => u.id === userId);
+      const userName = user ? `${user.firstName} ${user.lastName}` : 'User';
+      
       // Refresh the users list
       const updatedUsers = users.map(user => 
         user.id === userId ? { ...user, status: 'Blacklisted' } : user
@@ -95,7 +99,7 @@ const User: React.FC = () => {
       setFilteredUsers(updatedUsers);
       setActiveDropdown(null);
       
-      showToast('User has been blacklisted successfully', 'success');
+      showToast(`${userName} has been blacklisted successfully`, 'success');
     } catch (error) {
       console.error('Error blacklisting user:', error);
       showToast('Failed to blacklist user. Please try again.', 'error');
@@ -109,6 +113,10 @@ const User: React.FC = () => {
       setUpdating(userId);
       await activateUser(userId);
       
+      // Get the user name for toast message
+      const user = users.find(u => u.id === userId);
+      const userName = user ? `${user.firstName} ${user.lastName}` : 'User';
+      
       // Refresh the users list
       const updatedUsers = users.map(user => 
         user.id === userId ? { ...user, status: 'Active' } : user
@@ -117,7 +125,7 @@ const User: React.FC = () => {
       setFilteredUsers(updatedUsers);
       setActiveDropdown(null);
       
-      showToast('User has been activated successfully', 'success');
+      showToast(`${userName} has been activated successfully`, 'success');
     } catch (error) {
       console.error('Error activating user:', error);
       showToast('Failed to activate user. Please try again.', 'error');
