@@ -12,6 +12,9 @@ import SavingsIcon from '../../assets/SidebarLogo/Savings.svg';
 import LoanRequestsIcon from '../../assets/SidebarLogo/Loan_Requests.svg';
 import WhitelistIcon from '../../assets/SidebarLogo/Whitelist.svg';
 import KarmaIcon from '../../assets/SidebarLogo/Karma.svg';
+import SystemDmIcon from '../../assets/SidebarLogo/SystemsMessages.svg';
+import LogOut from '../../assets/SidebarLogo/Logout.svg';
+
 
 const DashboardOutlet: React.FC = () => {
   const [orgDropdownOpen, setOrgDropdownOpen] = useState(false);
@@ -199,6 +202,24 @@ const DashboardOutlet: React.FC = () => {
                 <img src={DecisionModelsIcon} alt="Audit Logs" />
               </span>
               <span className="sidebar-text">Audit Logs</span>
+            </li>
+            <li className="sidebar-link">
+              <span className="sidebar-icon">
+                <img src={SystemDmIcon} alt="Systems Messages" />
+              </span>
+              <span className="sidebar-text">Systems Messages</span>
+            </li>
+
+            <li className="sidebar-line"></li>
+
+            <li className="sidebar-link">
+              <span className="sidebar-icon">
+                <img src={LogOut} alt="Logout" />
+              </span>
+              <span className="sidebar-text">Logout</span>
+            </li>
+            <li className="sidebar-link" style={{ marginTop: '1em' }}>
+              <span className="sidebar-text">v1.2.0</span>
             </li>
           </ul>
         </aside>

@@ -96,6 +96,10 @@
   }
 }
 
+.sidebar-line {
+  border-top: 1px solid $color-border-light;
+  margin: 3em 0 0 0;
+}
 .sidebar-caret {
   margin-left: auto;
   display: flex;
