@@ -29,7 +29,6 @@ interface ExtendedUser {
 
 export const fetchReqResUsers = async (): Promise<ExtendedUser[]> => {
   try {
-    // ReqRes only has 12 users, so we'll need to duplicate/modify for 100+
     const response = await fetch(`${BASE_URL}/users?per_page=12`);
     const data: ReqResResponse = await response.json();
     
