@@ -35,8 +35,10 @@ const UserSummary: React.FC = () => (
         <div className={`user-summary-icon user-summary-icon-${idx}`}>
           <img src={item.icon} alt={item.label} />
         </div>
-        <div className="user-summary-label">{item.label}</div>
-        <div className="user-summary-value">{item.value}</div>
+        <div className="user-summary-content">
+          <div className="user-summary-label">{item.label}</div>
+          <div className="user-summary-value">{item.value}</div>
+        </div>
       </div>
     ))}
   </div>
