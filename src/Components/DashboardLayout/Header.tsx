@@ -45,7 +45,6 @@ const Header: React.FC = () => {
         </button>
       </div>
       <div className="header-right">
-        <span className="header-docs">Docs</span>
         <button className="header-bell" aria-label="Notifications">
           <img src={Bell} alt="Bell Notification" className="header-bell-img" />
         </button>
@@ -78,6 +77,9 @@ const Header: React.FC = () => {
           </svg>
           {dropdownOpen && (
             <div className="header-dropdown">
+              <button className="header-dropdown-item">
+                Docs
+              </button>
               <button className="header-dropdown-item" onClick={() => {/* handle logout here */}}>
                 Logout
               </button>
