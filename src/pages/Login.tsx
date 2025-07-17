@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../services/AuthContext';
 import '../styles/Login.scss'
 import Main_Logo from '../assets/LoginLogo/Ledsqr_Logo.svg'
 import PIC_LOGO from '../assets/LoginLogo/pablo_signin.svg'
@@ -9,6 +11,8 @@ const Login: React.FC = () => {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
+  const { login, loading } = useAuth();
+  const navigate = useNavigate();
 
   // Email validation
   const isValidEmail = (email: string) =>
@@ -19,8 +23,9 @@ const Login: React.FC = () => {
     password.length >= 6;
 
   // logic for handling login
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
     if (!email || !password) {
       setToast({ message: 'Please enter both email and password.', type: 'error' });
       return;
@@ -33,9 +38,17 @@ const Login: React.FC = () => {
       setToast({ message: 'Password must be at least 6 characters.', type: 'error' });
       return;
     }
-    // send successful message
-    setToast({ message: 'Login successful!', type: 'success' });
     
+    try {
+      await login({ email, password });
+      setToast({ message: 'Login successful!', type: 'success' });
+      setTimeout(() => {
+        navigate('/dashboard/users');
+      }, 1000);
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : 'Login failed';
+      setToast({ message: errorMessage, type: 'error' });
+    }
   };
 
   return (
@@ -62,6 +75,7 @@ const Login: React.FC = () => {
           <p className="login-subtitle">Enter details to login.</p>
           
           <form onSubmit={handleSubmit} className="login-form">
+            {/* {error && <div className="error-message">{error}</div>} */}
             <div className="form-group">
               <input
                 type="email"
@@ -94,8 +108,8 @@ const Login: React.FC = () => {
             
             <a href="#" className="forgot-password">FORGOT PASSWORD?</a>
             
-            <button type="submit" className="login-button">
-              LOG IN
+            <button type="submit" className="login-button" disabled={loading}>
+              {loading ? 'Signing in...' : 'LOG IN'}
             </button>
           </form>
         </div>
