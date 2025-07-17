@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../../styles/Header.scss';
 import Bell from '../../assets/DashboardHeaderLogo/Bell_Notification.svg';
 import Avatar from '../../assets/DashboardHeaderLogo/Avatar.svg';
@@ -12,6 +13,17 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ onMobileMenuToggle }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    // Clear any stored user data
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    sessionStorage.clear();
+    
+    // Navigate to login page
+    navigate('/');
+  };
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -93,7 +105,7 @@ const Header: React.FC<HeaderProps> = ({ onMobileMenuToggle }) => {
               <button className="header-dropdown-item">
                 Docs
               </button>
-              <button className="header-dropdown-item" onClick={() => {/* handle logout here */}}>
+              <button className="header-dropdown-item" onClick={handleLogout}>
                 Logout
               </button>
             </div>

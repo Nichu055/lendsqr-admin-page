@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import Header from './Header';
 import '../../styles/DashboardOutlet.scss';
 import SwitchOrganizationIcon from '../../assets/SidebarLogo/Switch_organization.svg';
@@ -20,6 +20,7 @@ const DashboardOutlet: React.FC = () => {
   const [orgDropdownOpen, setOrgDropdownOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const orgDropdownRef = useRef<HTMLLIElement>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -43,6 +44,16 @@ const DashboardOutlet: React.FC = () => {
 
   const closeMobileMenu = () => {
     setMobileMenuOpen(false);
+  };
+
+  const handleLogout = () => {
+    // Clear any stored user data
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    sessionStorage.clear();
+    
+    // Navigate to login page
+    navigate('/');
   };
 
   return (
@@ -226,7 +237,7 @@ const DashboardOutlet: React.FC = () => {
 
             <li className="sidebar-line"></li>
 
-            <li className="sidebar-link">
+            <li className="sidebar-link" onClick={handleLogout} style={{ cursor: 'pointer' }}>
               <span className="sidebar-icon">
                 <img src={LogOut} alt="Logout" />
               </span>
