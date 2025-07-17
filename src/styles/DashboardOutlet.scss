@@ -173,11 +173,13 @@
   background: $color-light-gray;
   min-height: calc(100vh - 72px);
   overflow-x: auto;
-  margin-left: 250px;
+  margin-left: 258px;
+  margin-top: 72px;
   
   @media (max-width: 768px) {
     padding: 16px;
     width: 100%;
     margin-left: 0;
+    margin-top: 72px;
   }
 }
