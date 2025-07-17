@@ -4,6 +4,16 @@
   display: flex;
   gap: 24px;
   margin-bottom: 32px;
+  
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  
+  @media (max-width: 480px) {
+    gap: 12px;
+  }
 }
 
 .user-summary-card {
@@ -16,18 +26,71 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 8px;
+  flex: 1;
+  
+  @media (max-width: 768px) {
+    min-width: unset;
+    padding: 20px 24px;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 16px 20px;
+    gap: 12px;
+  }
 }
 
+.user-summary-icon {
+  margin-bottom: 12px;
+  
+  @media (max-width: 768px) {
+    margin-bottom: 0;
+    flex-shrink: 0;
+  }
+  
+  img {
+    width: 40px;
+    height: 40px;
+    
+    @media (max-width: 480px) {
+      width: 32px;
+      height: 32px;
+    }
+  }
+}
+
+.user-summary-content {
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+  }
+}
 
 .user-summary-label {
   font-size: 12px;
   color: $color-text-gray;
   font-weight: 600;
   letter-spacing: 1px;
+  
+  @media (max-width: 480px) {
+    font-size: 11px;
+  }
 }
 
 .user-summary-value {
   font-size: 24px;
   font-weight: 700;
   color: $color-primary-blue;
+  
+  @media (max-width: 768px) {
+    font-size: 20px;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 18px;
+  }
 }
