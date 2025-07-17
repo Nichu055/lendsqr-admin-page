@@ -1,5 +1,6 @@
 import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { AuthProvider } from './services/AuthContext';
 import Login from './pages/Login';
 import DashboardOutlet from './components/DashboardLayout/DashboardOutlet';
 import User from './pages/User';
@@ -30,8 +31,11 @@ const App: React.FC = () => {
       element: <NotFound />
     }
   ]);
+  
   return (
-    <RouterProvider router={routes}></RouterProvider>
+    <AuthProvider>
+      <RouterProvider router={routes}></RouterProvider>
+    </AuthProvider>
   );
 };
 
