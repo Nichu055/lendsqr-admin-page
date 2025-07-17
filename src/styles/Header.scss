@@ -8,6 +8,11 @@
   padding: 0 32px;
   height: 72px;
   border-bottom: 1px solid $color-light-gray;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1001;
   @include box-shadow-md;
 
   // Mobile responsive
@@ -18,6 +23,28 @@
   .header-left {
     display: flex;
     align-items: center;
+    gap: 16px;
+
+    .mobile-menu-toggle {
+      display: none;
+      flex-direction: column;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      gap: 3px;
+
+      @media (max-width: 768px) {
+        display: flex;
+      }
+
+      .hamburger-line {
+        width: 20px;
+        height: 2px;
+        background-color: $color-primary-blue;
+        transition: all 0.3s ease;
+      }
+    }
 
     .header-logo {
       font-size: 24px;
@@ -30,10 +57,8 @@
       height: 25px;
       width: auto;
       display: block;
-      margin-left: 1em;
 
       @media (max-width: 768px) {
-        margin-left: 0;
         height: 20px;
       }
     }
@@ -175,4 +200,4 @@
     }
   }
 }
-     
+

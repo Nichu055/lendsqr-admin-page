@@ -18,6 +18,7 @@ import LogOut from '../../assets/SidebarLogo/Logout.svg';
 
 const DashboardOutlet: React.FC = () => {
   const [orgDropdownOpen, setOrgDropdownOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const orgDropdownRef = useRef<HTMLLIElement>(null);
 
   useEffect(() => {
@@ -36,11 +37,24 @@ const DashboardOutlet: React.FC = () => {
     };
   }, [orgDropdownOpen]);
 
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen(!mobileMenuOpen);
+  };
+
+  const closeMobileMenu = () => {
+    setMobileMenuOpen(false);
+  };
+
   return (
     <div className="dashboard-layout">
-      <Header />
+      <Header onMobileMenuToggle={toggleMobileMenu} />
       <div className="dashboard-main">
-        <aside className="sidebar">
+        {/* Mobile Menu Overlay */}
+        {mobileMenuOpen && (
+          <div className="mobile-menu-overlay" onClick={closeMobileMenu}></div>
+        )}
+        
+        <aside className={`sidebar ${mobileMenuOpen ? 'mobile-open' : ''}`}>
           <ul className="sidebar-list">
             <li
               className="sidebar-switch-org"

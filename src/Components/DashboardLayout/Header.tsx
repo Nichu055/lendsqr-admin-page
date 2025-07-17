@@ -3,9 +3,13 @@ import '../../styles/Header.scss';
 import Bell from '../../assets/DashboardHeaderLogo/Bell_Notification.svg';
 import Avatar from '../../assets/DashboardHeaderLogo/Avatar.svg';
 import Logo from '../../assets/LoginLogo/Ledsqr_Logo.svg';
-import Search from '../../assets/DashboardHeaderLogo/Search_Logo.svg'; // Assuming you have a search icon
+import Search from '../../assets/DashboardHeaderLogo/Search_Logo.svg';
 
-const Header: React.FC = () => {
+interface HeaderProps {
+  onMobileMenuToggle: () => void;
+}
+
+const Header: React.FC<HeaderProps> = ({ onMobileMenuToggle }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -28,6 +32,15 @@ const Header: React.FC = () => {
   return (
     <header className="dashboard-header">
       <div className="header-left">
+        <button 
+          className="mobile-menu-toggle"
+          onClick={onMobileMenuToggle}
+          aria-label="Toggle mobile menu"
+        >
+          <span className="hamburger-line"></span>
+          <span className="hamburger-line"></span>
+          <span className="hamburger-line"></span>
+        </button>
         <img
           src={Logo}
           alt="lendsqr logo"

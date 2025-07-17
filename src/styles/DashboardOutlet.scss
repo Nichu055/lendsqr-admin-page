@@ -3,10 +3,45 @@
 .sidebar {
   width: 250px;
   background: $color-white;
-  min-height: 100vh;
+  height: calc(100vh - 72px);
   border-right: 1px solid $color-light-gray;
   padding-top: 24px;
   font-family: $font-family;
+  overflow-y: auto;
+  position: fixed;
+  top: 72px;
+  left: 0;
+  z-index: 100;
+  
+  @media (max-width: 768px) {
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    z-index: 1000;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    
+    &.mobile-open {
+      transform: translateX(0);
+    }
+  }
+  
+  @media (min-width: 769px) {
+    transform: translateX(0);
+  }
+}
+
+.mobile-menu-overlay {
+  display: none;
+  
+  @media (max-width: 768px) {
+    display: block;
+    position: fixed;
+    top: 72px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+  }
 }
 
 .sidebar-list {
@@ -115,13 +150,24 @@
 
 .dashboard-main {
   display: flex;
-  min-height: calc(100vh - 72px); // header height
+  min-height: calc(100vh - 72px);
+  
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
 }
 
 .dashboard-content {
   flex: 1;
   padding: 32px 24px;
   background: $color-light-gray;
-  min-height: 100vh;
+  min-height: calc(100vh - 72px);
   overflow-x: auto;
+  margin-left: 250px;
+  
+  @media (max-width: 768px) {
+    padding: 16px;
+    width: 100%;
+    margin-left: 0;
+  }
 }
