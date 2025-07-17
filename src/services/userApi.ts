@@ -105,6 +105,17 @@ export interface User {
     email: string;
     relationship: string;
   };
+  // Add loan and savings data
+  loans: {
+    hasActiveLoan: boolean;
+    loanAmount?: number;
+    loanStatus?: 'pending' | 'approved' | 'rejected' | 'completed';
+  };
+  savings: {
+    hasSavings: boolean;
+    savingsBalance?: number;
+    savingsGoal?: number;
+  };
 }
 
 export const fetchUsers = async (count: number = 100): Promise<User[]> => {
@@ -172,6 +183,16 @@ export const fetchUsers = async (count: number = 100): Promise<User[]> => {
             phoneNumber: data.results[(globalIndex + 1) % data.results.length]?.phone || '07060780922',
             email: data.results[(globalIndex + 1) % data.results.length]?.email || 'guarantor@email.com',
             relationship: ['Sister', 'Brother', 'Friend', 'Colleague'][globalIndex % 4]
+          },
+          loans: {
+            hasActiveLoan: Math.random() > 0.35, // 65% have loans
+            loanAmount: Math.random() > 0.35 ? Math.floor(Math.random() * 500000) + 50000 : undefined,
+            loanStatus: Math.random() > 0.35 ? (['pending', 'approved', 'completed'][Math.floor(Math.random() * 3)] as 'pending' | 'approved' | 'rejected' | 'completed') : undefined
+          },
+          savings: {
+            hasSavings: Math.random() > 0.15, // 85% have savings
+            savingsBalance: Math.random() > 0.15 ? Math.floor(Math.random() * 1000000) + 10000 : undefined,
+            savingsGoal: Math.random() > 0.15 ? Math.floor(Math.random() * 2000000) + 100000 : undefined
           }
         };
       });
@@ -237,4 +258,31 @@ export const blacklistUser = async (userId: string): Promise<User> => {
 
 export const activateUser = async (userId: string): Promise<User> => {
   return updateUserStatus(userId, 'Active');
+};
+
+// Add function to get user statistics
+export const getUserStatistics = async (): Promise<{
+  totalUsers: number;
+  activeUsers: number;
+  usersWithLoans: number;
+  usersWithSavings: number;
+}> => {
+  try {
+    const users = await fetchUsers(500);
+    
+    return {
+      totalUsers: users.length,
+      activeUsers: users.filter(user => user.status === 'Active').length,
+      usersWithLoans: users.filter(user => user.loans.hasActiveLoan).length,
+      usersWithSavings: users.filter(user => user.savings.hasSavings).length
+    };
+  } catch (error) {
+    console.error('Error fetching user statistics:', error);
+    return {
+      totalUsers: 0,
+      activeUsers: 0,
+      usersWithLoans: 0,
+      usersWithSavings: 0
+    };
+  }
 };

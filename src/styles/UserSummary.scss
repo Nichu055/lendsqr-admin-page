@@ -40,6 +40,12 @@
     padding: 16px 20px;
     gap: 12px;
   }
+  
+  &:has(.user-summary-value:has-text("...")) {
+    .user-summary-value {
+      animation: loading-pulse 1.5s ease-in-out infinite;
+    }
+  }
 }
 
 .user-summary-icon {
@@ -85,12 +91,33 @@
   font-size: 24px;
   font-weight: 700;
   color: $color-primary-blue;
+  min-height: 32px;
+  display: flex;
+  align-items: center;
   
   @media (max-width: 768px) {
     font-size: 20px;
+    min-height: 28px;
   }
   
   @media (max-width: 480px) {
     font-size: 18px;
+    min-height: 24px;
+  }
+  
+  // Loading state
+  &:has-text("...") {
+    color: $color-text-gray;
+    opacity: 0.7;
+  }
+}
+
+// Add loading animation
+@keyframes loading-pulse {
+  0%, 100% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
   }
 }
