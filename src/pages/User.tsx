@@ -26,12 +26,15 @@ const User: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [activeDropdown, setActiveDropdown] = useState<number | null>(null);
   const [updating, setUpdating] = useState<string | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [usersPerPage, setUsersPerPage] = useState(100);
   const { showToast } = useToast();
 
   useEffect(() => {
     const loadUsers = async () => {
       setLoading(true);
-      const userData = await fetchUsers(100);
+      // Load more users for pagination (500 total)
+      const userData = await fetchUsers(500);
       setUsers(userData);
       setFilteredUsers(userData);
       setLoading(false);
@@ -39,6 +42,45 @@ const User: React.FC = () => {
 
     loadUsers();
   }, []);
+
+  // Calculate pagination
+  const totalPages = Math.ceil(filteredUsers.length / usersPerPage);
+  const startIndex = (currentPage - 1) * usersPerPage;
+  const endIndex = startIndex + usersPerPage;
+  const currentUsers = filteredUsers.slice(startIndex, endIndex);
+
+  const handlePageChange = (page: number) => {
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page);
+      setActiveDropdown(null); // Close any open dropdowns
+    }
+  };
+
+  const handleUsersPerPageChange = (count: number) => {
+    setUsersPerPage(count);
+    setCurrentPage(1); // Reset to first page
+  };
+
+  const generatePageNumbers = () => {
+    const pages = [];
+    const maxVisiblePages = 5;
+    
+    if (totalPages <= maxVisiblePages) {
+      for (let i = 1; i <= totalPages; i++) {
+        pages.push(i);
+      }
+    } else {
+      if (currentPage <= 3) {
+        pages.push(1, 2, 3, '...', totalPages);
+      } else if (currentPage >= totalPages - 2) {
+        pages.push(1, '...', totalPages - 2, totalPages - 1, totalPages);
+      } else {
+        pages.push(1, '...', currentPage - 1, currentPage, currentPage + 1, '...', totalPages);
+      }
+    }
+    
+    return pages;
+  };
 
   const toggleDropdown = (index: number) => {
     setActiveDropdown(activeDropdown === index ? null : index);
@@ -76,6 +118,7 @@ const User: React.FC = () => {
     }
     
     setFilteredUsers(filtered);
+    setCurrentPage(1); // Reset to first page when filtering
   };
 
   const handleViewUserDetails = (userId: string) => {
@@ -191,7 +234,7 @@ const User: React.FC = () => {
             </tr>
           </thead>
           <tbody>
-            {filteredUsers.map((user, idx) => (
+            {currentUsers.map((user, idx) => (
               <tr key={user.id}>
                 <td>{user.organization}</td>
                 <td>
@@ -262,22 +305,51 @@ const User: React.FC = () => {
           </tbody>
         </table>
         <div className="user-table-footer">
-          <div>
+          <div className="table-info">
             Showing{' '}
-            <select className="user-table-select">
-              <option>100</option>
+            <select 
+              className="user-table-select"
+              value={usersPerPage}
+              onChange={(e) => handleUsersPerPageChange(Number(e.target.value))}
+            >
+              <option value={50}>50</option>
+              <option value={100}>100</option>
+              <option value={150}>150</option>
+              <option value={200}>200</option>
             </select>{' '}
-            out of 100
+            out of {filteredUsers.length}
           </div>
           <div className="user-table-pagination">
-            {/* <ChevronLeftIcon /> */}
-            <button className="user-table-page active">1</button>
-            <button className="user-table-page">2</button>
-            <button className="user-table-page">3</button>
-            <span className="user-table-ellipsis">...</span>
-            <button className="user-table-page">15</button>
-            <button className="user-table-page">16</button>
-            {/* <ChevronRightIcon /> */}
+            <button 
+              className="pagination-nav"
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+            >
+              ‹
+            </button>
+            
+            {generatePageNumbers().map((page, index) => (
+              <React.Fragment key={index}>
+                {page === '...' ? (
+                  <span className="user-table-ellipsis">...</span>
+                ) : (
+                  <button 
+                    className={`user-table-page ${currentPage === page ? 'active' : ''}`}
+                    onClick={() => handlePageChange(page as number)}
+                  >
+                    {page}
+                  </button>
+                )}
+              </React.Fragment>
+            ))}
+            
+            <button 
+              className="pagination-nav"
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+            >
+              ›
+            </button>
           </div>
         </div>
       </div>
