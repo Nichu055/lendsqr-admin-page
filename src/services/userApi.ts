@@ -118,8 +118,16 @@ export interface User {
   };
 }
 
+// Add a cache for users to maintain consistency
+let usersCache: User[] = [];
+
 export const fetchUsers = async (count: number = 100): Promise<User[]> => {
   try {
+    // Check if we have cached users and they match the requested count
+    if (usersCache.length >= count) {
+      return usersCache.slice(0, count);
+    }
+
     const batchSize = 100; // API limit
     const batches = Math.ceil(count / batchSize);
     const allUsers: User[] = [];
@@ -200,10 +208,13 @@ export const fetchUsers = async (count: number = 100): Promise<User[]> => {
       allUsers.push(...batchUsers);
     }
     
+    // Cache the users
+    usersCache = allUsers;
+    
     return allUsers;
   } catch (error) {
     console.error('Error fetching users:', error);
-    return [];
+    return usersCache.length > 0 ? usersCache : [];
   }
 };
 
@@ -220,8 +231,14 @@ export const fetchUserById = async (userId: string): Promise<User | null> => {
 // Add these new functions to handle user status updates
 export const updateUserStatus = async (userId: string, newStatus: 'Active' | 'Blacklisted'): Promise<User> => {
   try {
+    // Update in cache first
+    const userIndex = usersCache.findIndex(u => u.id === userId);
+    if (userIndex !== -1) {
+      usersCache[userIndex] = { ...usersCache[userIndex], status: newStatus };
+    }
+
     // Get current user data
-    const user = await fetchUserById(userId);
+    const user = usersCache.find(u => u.id === userId);
     if (!user) {
       throw new Error('User not found');
     }
@@ -235,15 +252,10 @@ export const updateUserStatus = async (userId: string, newStatus: 'Active' | 'Bl
     
     // Also update the main users list in localStorage
     const usersKey = 'lendsqr_users';
-    const existingUsers = localStorage.getItem(usersKey);
-    if (existingUsers) {
-      const usersList = JSON.parse(existingUsers);
-      const userIndex = usersList.findIndex((u: User) => u.id === userId);
-      if (userIndex !== -1) {
-        usersList[userIndex] = updatedUser;
-        localStorage.setItem(usersKey, JSON.stringify(usersList));
-      }
-    }
+    localStorage.setItem(usersKey, JSON.stringify(usersCache));
+    
+    // Simulate API delay
+    await new Promise(resolve => setTimeout(resolve, 500));
     
     return updatedUser;
   } catch (error) {
@@ -260,7 +272,7 @@ export const activateUser = async (userId: string): Promise<User> => {
   return updateUserStatus(userId, 'Active');
 };
 
-// Add function to get user statistics
+// Add function to get user statistics from cache for better performance
 export const getUserStatistics = async (): Promise<{
   totalUsers: number;
   activeUsers: number;
@@ -268,13 +280,17 @@ export const getUserStatistics = async (): Promise<{
   usersWithSavings: number;
 }> => {
   try {
-    const users = await fetchUsers(500);
+    // Use cached data if available, otherwise fetch fresh data
+    let users = usersCache;
+    if (users.length === 0) {
+      users = await fetchUsers(500);
+    }
     
     return {
       totalUsers: users.length,
       activeUsers: users.filter(user => user.status === 'Active').length,
-      usersWithLoans: users.filter(user => user.loans.hasActiveLoan).length,
-      usersWithSavings: users.filter(user => user.savings.hasSavings).length
+      usersWithLoans: users.filter(user => user.loans?.hasActiveLoan).length,
+      usersWithSavings: users.filter(user => user.savings?.hasSavings).length
     };
   } catch (error) {
     console.error('Error fetching user statistics:', error);
