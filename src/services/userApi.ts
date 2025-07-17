@@ -181,3 +181,46 @@ export const fetchUserById = async (userId: string): Promise<User | null> => {
     return null;
   }
 };
+
+// Add these new functions to handle user status updates
+export const updateUserStatus = async (userId: string, newStatus: 'Active' | 'Blacklisted'): Promise<User> => {
+  try {
+    // Get current user data
+    const user = await fetchUserById(userId);
+    if (!user) {
+      throw new Error('User not found');
+    }
+
+    // Update the status
+    const updatedUser = { ...user, status: newStatus };
+    
+    // Save to localStorage for persistence
+    const storageKey = `user_${userId}`;
+    localStorage.setItem(storageKey, JSON.stringify(updatedUser));
+    
+    // Also update the main users list in localStorage
+    const usersKey = 'lendsqr_users';
+    const existingUsers = localStorage.getItem(usersKey);
+    if (existingUsers) {
+      const usersList = JSON.parse(existingUsers);
+      const userIndex = usersList.findIndex((u: User) => u.id === userId);
+      if (userIndex !== -1) {
+        usersList[userIndex] = updatedUser;
+        localStorage.setItem(usersKey, JSON.stringify(usersList));
+      }
+    }
+    
+    return updatedUser;
+  } catch (error) {
+    console.error('Error updating user status:', error);
+    throw error;
+  }
+};
+
+export const blacklistUser = async (userId: string): Promise<User> => {
+  return updateUserStatus(userId, 'Blacklisted');
+};
+
+export const activateUser = async (userId: string): Promise<User> => {
+  return updateUserStatus(userId, 'Active');
+};
