@@ -86,7 +86,7 @@ const UserDetails: React.FC = () => {
             {/* Personal Information */}
             <section className="details-section">
               <h3 className="section-title">Personal Information</h3>
-              <div className="details-grid">
+              <div className="details-grid personal-info-grid">
                 <div className="detail-item">
                   <label>FULL NAME</label>
                   <span>Grace Effiom</span>
@@ -125,7 +125,7 @@ const UserDetails: React.FC = () => {
             {/* Education and Employment */}
             <section className="details-section">
               <h3 className="section-title">Education and Employment</h3>
-              <div className="details-grid">
+              <div className="details-grid education-employment-grid">
                 <div className="detail-item">
                   <label>LEVEL OF EDUCATION</label>
                   <span>B.Sc</span>

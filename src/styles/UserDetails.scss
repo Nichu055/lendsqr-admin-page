@@ -238,6 +238,18 @@
   gap: 25px;
 }
 
+.personal-info-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr) !important;
+  gap: 20px !important;
+}
+
+.education-employment-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr) !important;
+  gap: 20px !important;
+}
+
 .socials-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr) !important;
