@@ -28,6 +28,7 @@ const User: React.FC = () => {
   const [updating, setUpdating] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [usersPerPage, setUsersPerPage] = useState(100);
+  const [summaryRefreshTrigger, setSummaryRefreshTrigger] = useState(0);
   const { showToast } = useToast();
 
   useEffect(() => {
@@ -142,6 +143,9 @@ const User: React.FC = () => {
       setFilteredUsers(updatedUsers);
       setActiveDropdown(null);
       
+      // Trigger UserSummary refresh
+      setSummaryRefreshTrigger(prev => prev + 1);
+      
       showToast(`${userName} has been blacklisted successfully`, 'success');
     } catch (error) {
       console.error('Error blacklisting user:', error);
@@ -167,6 +171,9 @@ const User: React.FC = () => {
       setUsers(updatedUsers);
       setFilteredUsers(updatedUsers);
       setActiveDropdown(null);
+      
+      // Trigger UserSummary refresh
+      setSummaryRefreshTrigger(prev => prev + 1);
       
       showToast(`${userName} has been activated successfully`, 'success');
     } catch (error) {
@@ -201,7 +208,7 @@ const User: React.FC = () => {
   return (
     <div className="user-page">
       <h2 className="user-title">Users</h2>
-      <UserSummary />
+      <UserSummary refreshTrigger={summaryRefreshTrigger} />
       <div className="user-table-container">
         <table className="user-table">
           <thead>
