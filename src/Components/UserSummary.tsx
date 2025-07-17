@@ -6,7 +6,11 @@ import ActiveUserIcon from '../assets/UserSummary/ActiveUsers.svg';
 import UsersLoans from '../assets/UserSummary/UsersLoans.svg';
 import UsersSavingIcons from '../assets/UserSummary/UserSavings.svg';
 
-const UserSummary: React.FC = () => {
+interface UserSummaryProps {
+  refreshTrigger?: number; // Add prop to trigger refresh
+}
+
+const UserSummary: React.FC<UserSummaryProps> = ({ refreshTrigger }) => {
   const [stats, setStats] = useState({
     totalUsers: 0,
     activeUsers: 0,
@@ -29,7 +33,7 @@ const UserSummary: React.FC = () => {
     };
 
     loadUserStatistics();
-  }, []);
+  }, [refreshTrigger]); // Add refreshTrigger as dependency
 
   const userSummaryData = [
     {
