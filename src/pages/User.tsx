@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { fetchUsers } from '../services/userApi';
+import { fetchUsers, blacklistUser, activateUser } from '../services/userApi';
 import type { User as UserType } from '../services/userApi';
 import '../styles/User.scss';
 import UserSummary from '../components/UserSummary';
@@ -24,6 +24,7 @@ const User: React.FC = () => {
   const [filteredUsers, setFilteredUsers] = useState<UserType[]>([]);
   const [loading, setLoading] = useState(true);
   const [activeDropdown, setActiveDropdown] = useState<number | null>(null);
+  const [updating, setUpdating] = useState<string | null>(null);
 
   useEffect(() => {
     const loadUsers = async () => {
@@ -77,6 +78,50 @@ const User: React.FC = () => {
 
   const handleViewUserDetails = (userId: string) => {
     navigate(`/dashboard/users/userdetails?id=${userId}`);
+  };
+
+  const handleBlacklistUser = async (userId: string) => {
+    try {
+      setUpdating(userId);
+      await blacklistUser(userId);
+      
+      // Refresh the users list
+      const updatedUsers = users.map(user => 
+        user.id === userId ? { ...user, status: 'Blacklisted' } : user
+      );
+      setUsers(updatedUsers);
+      setFilteredUsers(updatedUsers);
+      setActiveDropdown(null);
+      
+      alert('User has been blacklisted successfully');
+    } catch (error) {
+      console.error('Error blacklisting user:', error);
+      alert('Failed to blacklist user. Please try again.');
+    } finally {
+      setUpdating(null);
+    }
+  };
+
+  const handleActivateUser = async (userId: string) => {
+    try {
+      setUpdating(userId);
+      await activateUser(userId);
+      
+      // Refresh the users list
+      const updatedUsers = users.map(user => 
+        user.id === userId ? { ...user, status: 'Active' } : user
+      );
+      setUsers(updatedUsers);
+      setFilteredUsers(updatedUsers);
+      setActiveDropdown(null);
+      
+      alert('User has been activated successfully');
+    } catch (error) {
+      console.error('Error activating user:', error);
+      alert('Failed to activate user. Please try again.');
+    } finally {
+      setUpdating(null);
+    }
   };
 
   const statusClass = (status: string) => {
@@ -166,8 +211,9 @@ const User: React.FC = () => {
                   <button
                     className="user-menu-button"
                     onClick={() => toggleDropdown(idx)}
+                    disabled={updating === user.id}
                   >
-                    ⋮
+                    {updating === user.id ? '...' : '⋮'}
                   </button>
                   {activeDropdown === idx && (
                     <div className="user-dropdown">
@@ -180,13 +226,19 @@ const User: React.FC = () => {
                         </span>
                         View Details
                       </div>
-                      <div className="user-dropdown-item">
+                      <div 
+                        className="user-dropdown-item"
+                        onClick={() => handleBlacklistUser(user.id)}
+                      >
                         <span className="dropdown-icon">
                           <img src={BlacklistUser} alt="Blacklist User" />
                         </span>
                         Blacklist User
                       </div>
-                      <div className="user-dropdown-item">
+                      <div 
+                        className="user-dropdown-item"
+                        onClick={() => handleActivateUser(user.id)}
+                      >
                         <span className="dropdown-icon">
                           <img src={ActivateUser} alt="Activate User" />
                         </span>
