@@ -1,0 +1,183 @@
+const BASE_URL = 'https://randomuser.me/api/';
+
+interface RandomUserName {
+  first: string;
+  last: string;
+}
+
+interface RandomUserLocation {
+  street: {
+    number: number;
+    name: string;
+  };
+  city: string;
+  state: string;
+  country: string;
+}
+
+interface RandomUserPicture {
+  large: string;
+  medium: string;
+  thumbnail: string;
+}
+
+interface RandomUserLogin {
+  uuid: string;
+  username: string;
+}
+
+interface RandomUserRegistered {
+  date: string;
+  age: number;
+}
+
+interface RandomUserApiUser {
+  name: RandomUserName;
+  email: string;
+  phone: string;
+  gender: string;
+  location: RandomUserLocation;
+  picture: RandomUserPicture;
+  login: RandomUserLogin;
+  registered: RandomUserRegistered;
+}
+
+interface RandomUserApiResponse {
+  results: RandomUserApiUser[];
+  info: {
+    seed: string;
+    results: number;
+    page: number;
+    version: string;
+  };
+}
+
+export interface User {
+  id: string;
+  organization: string;
+  username: string;
+  email: string;
+  phone: string;
+  dateJoined: string;
+  status: string;
+  // Additional fields for user details
+  firstName: string;
+  lastName: string;
+  gender: string;
+  picture: string;
+  address: {
+    street: string;
+    city: string;
+    state: string;
+    country: string;
+  };
+  // Banking details
+  bvn: string;
+  accountNumber: string;
+  bankName: string;
+  balance: number;
+  // Social media
+  social: {
+    twitter: string;
+    facebook: string;
+    instagram: string;
+  };
+  // Employment
+  employment: {
+    level: string;
+    status: string;
+    sector: string;
+    duration: string;
+    officeEmail: string;
+    monthlyIncome: string;
+    loanRepayment: string;
+  };
+  // Personal info
+  personal: {
+    maritalStatus: string;
+    children: string;
+    residence: string;
+  };
+  // Guarantor
+  guarantor: {
+    fullName: string;
+    phoneNumber: string;
+    email: string;
+    relationship: string;
+  };
+}
+
+export const fetchUsers = async (count: number = 100): Promise<User[]> => {
+  try {
+    const response = await fetch(`${BASE_URL}?results=${count}&seed=lendsqr`);
+    const data: RandomUserApiResponse = await response.json();
+    
+    return data.results.map((user: RandomUserApiUser, index: number) => ({
+      id: user.login.uuid,
+      organization: ['Lendsqr', 'Irorun', 'Lendstar'][index % 3],
+      username: user.login.username,
+      email: user.email,
+      phone: user.phone,
+      dateJoined: new Date(user.registered.date).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      }),
+      status: ['Active', 'Pending', 'Blacklisted', 'Inactive'][index % 4],
+      firstName: user.name.first,
+      lastName: user.name.last,
+      gender: user.gender,
+      picture: user.picture.large,
+      address: {
+        street: `${user.location.street.number} ${user.location.street.name}`,
+        city: user.location.city,
+        state: user.location.state,
+        country: user.location.country,
+      },
+      bvn: Math.random().toString().slice(2, 13),
+      accountNumber: Math.random().toString().slice(2, 12),
+      bankName: ['Providus Bank', 'GTBank', 'Access Bank'][index % 3],
+      balance: Math.floor(Math.random() * 1000000),
+      social: {
+        twitter: `@${user.login.username}`,
+        facebook: `${user.name.first} ${user.name.last}`,
+        instagram: `@${user.login.username}`
+      },
+      employment: {
+        level: ['B.Sc', 'M.Sc', 'PhD', 'HND'][index % 4],
+        status: ['Employed', 'Self-employed', 'Unemployed'][index % 3],
+        sector: ['FinTech', 'Healthcare', 'Education', 'Technology'][index % 4],
+        duration: `${Math.floor(Math.random() * 5) + 1} years`,
+        officeEmail: user.email,
+        monthlyIncome: `₦${(Math.floor(Math.random() * 500000) + 100000).toLocaleString()}.00- ₦${(Math.floor(Math.random() * 500000) + 400000).toLocaleString()}.00`,
+        loanRepayment: `${Math.floor(Math.random() * 100000) + 10000}`
+      },
+      personal: {
+        maritalStatus: ['Single', 'Married', 'Divorced'][index % 3],
+        children: Math.floor(Math.random() * 4).toString() || 'None',
+        residence: ["Parent's Apartment", "Own Apartment", "Rented Apartment"][index % 3]
+      },
+      guarantor: {
+        fullName: `${data.results[(index + 1) % data.results.length]?.name.first} ${data.results[(index + 1) % data.results.length]?.name.last}`,
+        phoneNumber: data.results[(index + 1) % data.results.length]?.phone || '07060780922',
+        email: data.results[(index + 1) % data.results.length]?.email || 'guarantor@email.com',
+        relationship: ['Sister', 'Brother', 'Friend', 'Colleague'][index % 4]
+      }
+    }));
+  } catch (error) {
+    console.error('Error fetching users:', error);
+    return [];
+  }
+};
+
+export const fetchUserById = async (userId: string): Promise<User | null> => {
+  try {
+    const users = await fetchUsers(100);
+    return users.find(user => user.id === userId) || null;
+  } catch (error) {
+    console.error('Error fetching user details:', error);
+    return null;
+  }
+};
