@@ -72,14 +72,14 @@ const DashboardOutlet: React.FC = () => {
                 ▼
               </button>
             </li>
-            {orgDropdownOpen && (
-              <li className="sidebar-dashboard">
-                <span className="sidebar-icon">
-                  <img src={DashboardIcon} alt="Dashboard" />
-                </span>
-                <span className="sidebar-text">Dashboard</span>
-              </li>
-            )}
+            {/* {orgDropdownOpen && ()} */}
+          
+            <li className="sidebar-link">
+              <span className="sidebar-icon">
+                <img src={DashboardIcon} alt="Dashboard" />
+              </span>
+              <span className="sidebar-text">Dashboard</span>
+            </li>
             <li className="sidebar-section">CUSTOMERS</li>
             <li className="sidebar-link active">
               <span className="sidebar-icon">
