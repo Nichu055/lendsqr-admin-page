@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import type { User } from '../services/userApi';
 import { fetchUserById, blacklistUser, activateUser } from '../services/userApi';
+import { useToast } from '../components/ToastContext';
 import '../styles/UserDetails.scss';
 import BackArrowIcon from '../assets/UsersTable/BackArrow.svg';
 
@@ -12,6 +13,7 @@ const UserDetails: React.FC = () => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [updating, setUpdating] = useState(false);
+  const { showToast } = useToast();
 
   const userId = searchParams.get('id');
 
@@ -49,11 +51,10 @@ const UserDetails: React.FC = () => {
       const updatedUser = await blacklistUser(user.id);
       setUser(updatedUser);
       
-      // Show success message (you can replace with a toast notification)
-      alert('User has been blacklisted successfully');
+      showToast('User has been blacklisted successfully', 'success');
     } catch (error) {
       console.error('Error blacklisting user:', error);
-      alert('Failed to blacklist user. Please try again.');
+      showToast('Failed to blacklist user. Please try again.', 'error');
     } finally {
       setUpdating(false);
     }
@@ -67,11 +68,10 @@ const UserDetails: React.FC = () => {
       const updatedUser = await activateUser(user.id);
       setUser(updatedUser);
       
-      // Show success message (you can replace with a toast notification)
-      alert('User has been activated successfully');
+      showToast('User has been activated successfully', 'success');
     } catch (error) {
       console.error('Error activating user:', error);
-      alert('Failed to activate user. Please try again.');
+      showToast('Failed to activate user. Please try again.', 'error');
     } finally {
       setUpdating(false);
     }
