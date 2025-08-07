@@ -1,49 +1,120 @@
-# React + TypeScript Project
+# Lendsqr Frontend Assessment
 
-Welcome! This project is built with [React](https://react.dev/) and [TypeScript](https://www.typescriptlang.org/). It uses npm for package management.
+A modern user management dashboard built for Lendsqr's frontend assessment. This app helps financial institutions manage their users efficiently with a clean, responsive interface.
 
-## Overview
+## What This App Does
 
-This app interacts with external APIs to fetch and store data. The main goal is to provide a smooth user experience while keeping the codebase maintainable and scalable.
+This is a comprehensive user management system that allows administrators to:
 
-## How API Data Is Stored
+- **View all users** in a clean, organized table with pagination
+- **Filter users** by organization, username, email, phone number, date joined, and status
+- **See detailed user information** including personal details, employment info, guarantor details, and financial data
+- **Manage user status** by activating or blacklisting users as needed
+- **Track user statistics** with summary cards showing total users, active users, users with loans, and users with savings
+- **Secure login system** with form validation and user authentication
 
-When the app fetches data from an API, it stores the results in React state using hooks like `useState` or `useReducer`. For more complex scenarios, it may use context providers or state management libraries (like Redux).
+## Problems It Solves
 
-Example:
-- When you fetch user info, it’s stored in a state variable.
-- If you refresh the page, the app fetches the data again from the API.
+**For Financial Institutions:**
 
-For temporary storage (like caching), the app may use browser storage (localStorage or sessionStorage) to keep data available between sessions.
+- Eliminates the need for multiple systems to manage user data
+- Provides quick access to comprehensive user information
+- Streamlines user status management (activation/blacklisting)
+- Offers real-time statistics for better decision making
 
-## APIs Used
+**For Administrators:**
 
-The project uses the following APIs:
-- **Example API:** [https://api.example.com/users](https://api.example.com/users)  
-  Used to fetch user data.
-- **Another API:** [https://api.example.com/posts](https://api.example.com/posts)  
-  Used to fetch posts.
+- Reduces time spent searching through user records
+- Simplifies the process of viewing detailed user profiles
+- Makes bulk user management more efficient
+- Provides a mobile-friendly interface for on-the-go access
 
-You can find the API calls in the codebase, typically inside files like `src/api/` or within React components using `fetch` or `axios`.
+## Tools & Technologies Used
 
-## How It Works
+- **React 19** - For building the user interface
+- **TypeScript** - For type safety and better development experience
+- **React Router** - For navigation between pages
+- **SCSS/Sass** - For styling and responsive design
+- **Vite** - For fast development and building
+- **Local Storage** - For persisting user data and authentication
+- **Random User API** - For generating realistic user data
+- **Custom Toast System** - For user feedback and notifications
 
-1. The app sends a request to the API endpoint.
-2. The response is parsed and stored in React state.
-3. Components read from state and display the data.
-4. If needed, data is cached in localStorage for faster reloads.
+## Key Features
+
+###  Secure Authentication
+
+- Login form with email and password validation
+- Persistent sessions using local storage
+- Automatic redirect to dashboard after login
+
+###  User Dashboard
+
+- Summary cards showing key statistics
+- Responsive table with user information
+- Advanced filtering system
+- Pagination for handling large datasets
+
+###  Detailed User Profiles
+
+- Complete user information display
+- Personal, employment, and financial details
+- Guarantor information
+- User action buttons (activate/blacklist)
+
+###  Mobile Responsive
+
+- Works seamlessly on desktop, tablet, and mobile
+- Touch-friendly interface
+- Collapsible sidebar for mobile navigation
+
+###  Modern UI/UX
+
+- Clean, professional design
+- Intuitive navigation
+- Real-time feedback with toast notifications
+- Loading states and error handling
+
+## Demo Video
+
+Watch the full walkthrough of the application:
+[App Demo Video]
+
+https://www.loom.com/share/947fb70748a74c628d88dcede60a5239?sid=1265d6c9-1957-4409-855e-39b66534ff39
+
+## Live Demo
+
+[View Live Application] 
+
+https://ulasi-lendsqr-fe-test-5b43a.web.app
 
 ## Getting Started
 
-1. Install dependencies:
+1. **Clone the repository**
+
+   ```bash
+   git clone https://github.com/yourusername/ulasi-lendsqr-fe-tes.git
+   cd ulasi-lendsqr-fe-tes
    ```
+
+2. **Install dependencies**
+
+   ```bash
    npm install
    ```
-2. Start the development server:
-   ```
-   npm start
+
+3. **Start the development server**
+
+   ```bash
+   npm run dev
    ```
 
----
+4. **Open your browser**
+   Navigate to `http://localhost:5173`
 
-Feel free to explore the code and reach out if you have
+## Test Credentials
+
+Use these credentials to log into the application:
+
+- **Email:** test@lendsqr.com
+- **Password:** password123
