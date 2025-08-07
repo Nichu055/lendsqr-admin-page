@@ -1,4 +1,4 @@
-# Lendsqr Frontend Assessment
+# Lendsqr Admin Dashboard
 
 A modern user management dashboard built for Lendsqr's frontend assessment. This app helps financial institutions manage their users efficiently with a clean, responsive interface.
 
